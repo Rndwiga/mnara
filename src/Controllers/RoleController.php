@@ -11,6 +11,8 @@ use Shinobi;
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
+//use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Permission;
 
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;

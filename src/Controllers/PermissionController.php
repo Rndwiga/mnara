@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Shinobi;
 
+
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
 use Tyondo\Mnara\Requests\StoreRequest;

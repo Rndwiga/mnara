@@ -26,6 +26,7 @@ class MnaraServiceProvider extends ServiceProvider {
     protected $providers = [
         'Caffeinated\Shinobi\ShinobiServiceProvider', // For RBAC
         'Collective\Html\HtmlServiceProvider', // For Mnara Forms to function
+        //'Spatie\Permission\PermissionServiceProvider'
     ];
     /**
      * @var array
@@ -34,7 +35,7 @@ class MnaraServiceProvider extends ServiceProvider {
         'Form' => 'Collective\Html\FormFacade', // required for Mnara Forms
         'Html' => 'Collective\Html\HtmlFacade', // required for Mnara Forms
         'Shinobi' => 'Caffeinated\Shinobi\Facades\Shinobi', // For RBAC functions
-        'Mnara' => 'Tyondo\Mnara\MnaraFacade' // not required, but available
+        //'Mnara' => 'Tyondo\Mnara\MnaraFacade' // not required, but available
     ];
 
     /**

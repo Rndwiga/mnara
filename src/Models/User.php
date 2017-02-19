@@ -7,10 +7,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
 
+//use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     use Notifiable;
     use ShinobiTrait;
+    //use HasRoles;
     /**
      * The database table used by the model.
      *
@@ -38,9 +41,13 @@ class User extends Authenticatable
     /**
      * The roles that have the permissions.
      */
-    public function roles()
-    {
+/*
+        public function roles()
+        {
         return $this->belongsToMany('Tyondo\Mnara\Models\Role');
-        //return $this->belongsToMany('App\Role');
-    }
+        //return $this->belongsToMany('Spatie\Permission\Models\Role');
+
+        }
+ */
+
 }

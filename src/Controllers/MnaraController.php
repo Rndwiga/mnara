@@ -1,9 +1,10 @@
 <?php
 namespace Tyondo\Mnara\Controllers;
 
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Shinobi; //ACL
+//use Shinobi; //ACL
+use Caffeinated\Shinobi\Facades\Shinobi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
@@ -18,6 +19,7 @@ class MnaraController extends Controller
     {
 
       if ( Shinobi::can( config('mnara.acl.mnara.index', false) ) ) {
+     /// if ( Auth::user()->can( config('mnara.acl.mnara.index', false) ) ) {
             $links = config('mnara.dashboard');
             return view( config('mnara.views.layouts.dashboard') )
                     ->with('dashboard', $links)
