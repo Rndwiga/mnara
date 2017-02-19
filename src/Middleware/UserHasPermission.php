@@ -1,8 +1,8 @@
 <?php
 
-namespace Caffeinated\Shinobi\Middleware;
+namespace Tyondo\Mnara\Middleware;
 
-use Caffeinated\Shinobi\Models\Role;
+use Tyondo\Mnara\Models\Role;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 

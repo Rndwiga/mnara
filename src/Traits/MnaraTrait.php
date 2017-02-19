@@ -1,8 +1,8 @@
 <?php
 
-namespace Caffeinated\Shinobi\Traits;
+namespace Tyondo\Mnara\Traits;
 
-trait ShinobiTrait
+trait MnaraTrait
 {
     /*
     |----------------------------------------------------------------------

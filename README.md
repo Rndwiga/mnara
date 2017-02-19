@@ -1,6 +1,6 @@
 # Laravel 5.3 User Package
 
-A laravel 5.3^ complete user package. It has the following:
+A laravel 5.3.^|5.4.^ complete user package. It has the following:
 - 2 config files
 - View files
 - Migrations
@@ -44,23 +44,15 @@ to
 1. add the following files to the config/app.php file
 ````
 Tyondo\Mnara\MnaraServiceProvider::class, //Mnara
-Caffeinated\Shinobi\ShinobiServiceProvider::class, // For RBAC
-Collective\Html\HtmlServiceProvider::class, // For Mnara Forms to function
 ````
 Facades
 ````
-'Form'     => Collective\Html\FormFacade::class,  // required for Mnara Forms
-'HTML'     => Collective\Html\HtmlFacade::class,   // required for Mnara Forms
-'Shinobi'  => Caffeinated\Shinobi\Facades\Shinobi::class, // For RBAC functions
 'Mnara'    => Tyondo\Mnara\MnaraFacade::class, // not required, but available
     
 ````
-Publish shinobi service provider for the migration files
-````
-php artisan vendor:publish --provider="Caffeinated\Shinobi\ShinobiServiceProvider"
-````
 Publish tyondo/mnara config files
 ````
+php artisan vendor:publish --tag=migration
 php artisan vendor:publish --tag=config
 php artisan vendor:publish --tag=config-menu
 ````

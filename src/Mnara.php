@@ -1,11 +1,11 @@
 <?php
 
-namespace Caffeinated\Shinobi;
+namespace Tyondo\Mnara;
 
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Contracts\Auth\Guard;
 
-class Shinobi
+class Mnara
 {
     /**
      * @var Illuminate\Contracts\Auth\Guard

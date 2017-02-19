@@ -3,9 +3,10 @@
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Blade;
+//use Illuminate\Support\Facades\Config;
+//use Illuminate\Support\Facades\Route;
 
 /**
  * A Laravel 5.3 user package
@@ -13,7 +14,12 @@ use Illuminate\Foundation\AliasLoader;
  * @author: Rndwiga
  */
 class MnaraServiceProvider extends ServiceProvider {
-
+    /**
+     * Indicates of loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
     /**
      * This will be used to register config & view in 
      * your package namespace.
@@ -24,9 +30,7 @@ class MnaraServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $providers = [
-        'Caffeinated\Shinobi\ShinobiServiceProvider', // For RBAC
         'Collective\Html\HtmlServiceProvider', // For Mnara Forms to function
-        //'Spatie\Permission\PermissionServiceProvider'
     ];
     /**
      * @var array
@@ -34,8 +38,7 @@ class MnaraServiceProvider extends ServiceProvider {
     protected $aliases = [
         'Form' => 'Collective\Html\FormFacade', // required for Mnara Forms
         'Html' => 'Collective\Html\HtmlFacade', // required for Mnara Forms
-        'Shinobi' => 'Caffeinated\Shinobi\Facades\Shinobi', // For RBAC functions
-        //'Mnara' => 'Tyondo\Mnara\MnaraFacade' // not required, but available
+        'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade' // not required, but available
     ];
 
     /**
@@ -76,16 +79,10 @@ class MnaraServiceProvider extends ServiceProvider {
             $view->title = $this->app['config']->get('mnara.site_title');
         });
 		
-						// Register your migration's publisher
-						$this->publishes([
-							__DIR__.'/../database/migrations/' => base_path('/database/migrations')
-						], 'migrations');
-						
-						// Publish your seed's publisher
-						$this->publishes([
-							__DIR__.'/../database/seeds/' => base_path('/database/seeds')
-						], 'seeds');
-				
+        // Register your migration's publisher
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => base_path('/database/migrations')
+        ], 'migrations');
     }
 
     /**
@@ -99,10 +96,12 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->registerServiceProviders();
         $this->registerMiddleware();
         $this->registerAliases();
+        $this->registerBladeDirectives();
 
         // Register it
-        $this->app->singleton('mnara', function() {
-             return new Mnara;
+        $this->app->singleton('mnara', function($app) {
+            $auth = $app->make('Illuminate\Contracts\Auth\Guard');
+             return new Mnara($auth);
         });
     }
     /**
@@ -131,8 +130,34 @@ class MnaraServiceProvider extends ServiceProvider {
      */
     private function registerMiddleware()
     {
-        $this->app['router']->middleware('roleshinobi', 'Caffeinated\Shinobi\Middleware\UserHasRole');
-        $this->app['router']->middleware('permissionshinobi', 'Caffeinated\Shinobi\Middleware\UserHasPermission');
+        $this->app['router']->middleware('roleMnara', 'Tyondo\Mnara\Middleware\UserHasRole');
+        $this->app['router']->middleware('permissionMnara', 'Tyondo\Mnara\Middleware\UserHasPermission');
+    }
+    protected function registerBladeDirectives()
+    {
+        Blade::directive('can', function ($expression) {
+            return "<?php if (\\Mnara::can({$expression})): ?>";
+        });
+
+        Blade::directive('endcan', function ($expression) {
+            return '<?php endif; ?>';
+        });
+
+        Blade::directive('canatleast', function ($expression) {
+            return "<?php if (\\Mnara::canAtLeast({$expression})): ?>";
+        });
+
+        Blade::directive('endcanatleast', function ($expression) {
+            return '<?php endif; ?>';
+        });
+
+        Blade::directive('role', function ($expression) {
+            return "<?php if (\\Mnara::isRole({$expression})): ?>";
+        });
+
+        Blade::directive('endrole', function ($expression) {
+            return '<?php endif; ?>';
+        });
     }
 
 

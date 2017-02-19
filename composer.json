@@ -1,8 +1,8 @@
 {
 	"name": "tyondo/mnara",
 	"type": "package",
-    "description": "Front-end for the Shinboi Auth system of Users / Roles / Permissions in Laravel 5.3 and 5.4",
-    "keywords": ["authorization", "rbac", "permissions", "roles", "gui", "admin", "shinobi", "laravel"],
+    "description": "User management package with ACL for managing Users / Roles / Permissions in Laravel 5.3 and 5.4.",
+    "keywords": ["authorization", "rbac", "permissions", "roles", "gui", "admin", "laravel", "acl"],
     "homepage": "https://github.com/Rndwiga/mnara",
     "authors": [
         {
@@ -12,14 +12,8 @@
     ],
     "require": {
 		"php": ">=5.5.9",
-        "laravel/framework": "5.3.*",
+        "laravel/framework": "5.3.*|5.4.*",
         "laravelcollective/html": "5.3.*",
-        "spatie/laravel-permission": "^1.8",
-        "caffeinated/shinobi": "^3.0",
-        "illuminate/database": "5.3.*|5.4.*",
-        "illuminate/support": "5.3.*|5.4.*",
-        "illuminate/filesystem": "5.3.*|5.4.*",
-        "illuminate/config": "5.3.*|5.4.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5"

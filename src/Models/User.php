@@ -5,14 +5,14 @@ namespace Tyondo\Mnara\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Caffeinated\Shinobi\Traits\ShinobiTrait;
+use Tyondo\Mnara\Traits\MnaraTrait;
 
 //use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use ShinobiTrait;
+    use MnaraTrait;
     //use HasRoles;
     /**
      * The database table used by the model.
