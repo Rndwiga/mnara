@@ -166,16 +166,16 @@ return [
         'users' => [
             // 'index'     => 'mnara::user.index',
             'index'     => 'vendor.mnara.user.index',
-            //'create'    => 'mnara::user.create',
-            'create'    => 'vendor.mnara.user.create',
-            //'show'      => 'mnara::user.edit',
-            'show'      => 'vendor.mnara.user.edit',
-            //'edit'      => 'mnara::user.edit',
-            'edit'      => 'vendor.mnara.user.edit',
-            // 'role'      => 'mnara::user.role',
-            'role'      => 'vendor.mnara.user.role',
-            //'usermatrix'=> 'mnara::user.matrix'
-            'usermatrix'=> 'vendor.mnara.user.matrix'
+            'create'    => 'mnara::user.create',
+            //'create'    => 'vendor.mnara.user.create',
+            'show'      => 'mnara::user.edit',
+            //'show'      => 'vendor.mnara.user.edit',
+            'edit'      => 'mnara::user.edit',
+            //'edit'      => 'vendor.mnara.user.edit',
+             'role'      => 'mnara::user.role',
+            //'role'      => 'vendor.mnara.user.role',
+            'usermatrix'=> 'mnara::user.matrix'
+            //'usermatrix'=> 'vendor.mnara.user.matrix'
         ],
 
         'roles' => [

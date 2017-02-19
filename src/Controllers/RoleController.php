@@ -8,9 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Shinobi;
 
-use App\User;
-use App\Role;
-use App\Permission;
+use Tyondo\Mnara\Models\User;
+use Tyondo\Mnara\Models\Role;
+use Tyondo\Mnara\Models\Permission;
 
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;

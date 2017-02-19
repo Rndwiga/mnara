@@ -1,11 +1,11 @@
 <?php
 namespace Tyondo\Mnara\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Shinobi; //ACL
-
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 
 class MnaraController extends Controller
 {

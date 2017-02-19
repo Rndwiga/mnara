@@ -66,12 +66,11 @@
 
 			<div id="navbar-collapse" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					{{----}}
+					{{--@if (Auth::guest())--}}
 					@if (Auth::guest())
 						<li><a href="{{ url( config('mnara.auth_routes.login') ) }}">Login</a></li>
 						<li><a href="{{ url( config('mnara.auth_routes.register') ) }}">Register</a></li>
 					@else
-
 						<!-- navigation links -->
 						@foreach( config('mnara-menu.navigation') as $nav_menu )
 				        <li class="dropdown">
