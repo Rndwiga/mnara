@@ -1,0 +1,29 @@
+{
+	"name": "tyondo/mnara",
+	"type": "package",
+    "description": "Front-end for the Shinboi Auth system of Users / Roles / Permissions in Laravel 5",
+    "keywords": ["authorization", "rbac", "permissions", "roles", "gui", "admin", "shinobi", "laravel"],
+    "homepage": "https://github.com/SmarchSoftware/watchtower",
+    "authors": [
+        {
+            "name": "Raphael Ndwiga",
+            "email": "packages@tyondo.com"
+        }
+    ],
+    "require": {
+		"php": ">=5.5.9",
+        "laravel/framework": "5.3.*",
+        "laravelcollective/html": "5.3.*",
+        "caffeinated/shinobi": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+       "psr-4": {
+		 "Tyondo\\Mnara\\": "src/"
+        }
+    },
+    "license": "MIT"
+    
+}
