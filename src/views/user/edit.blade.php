@@ -41,7 +41,7 @@
           </div>
       </div>
       
-      @if ( Shinobi::can( config('mnara.acl.user.edit', false) ) ) 
+      @if ( Auth::user()->can( config('mnara.acl.user.edit', false) ) )
 
        <div class="form-group">
          <div class="col-sm-offset-3 col-sm-3">

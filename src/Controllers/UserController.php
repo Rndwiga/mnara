@@ -4,13 +4,14 @@ namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-use Shinobi;
+//use Shinobi;
 
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
-use Tyondo\Mnara\Models\Permission;
+//use Tyondo\Mnara\Models\Permission;
 //use Spatie\Permission\Models\Role;
 //use Spatie\Permission\Models\Permission;
 
@@ -35,7 +36,7 @@ class UserController extends Controller
 
 	/**
 	 * Determine which model to use
-	 * @return Model Instance
+	 * @return object Model
 	 */
 	function getModel() {
 		$model = config('mnara.user.model', $this->model);
@@ -45,19 +46,19 @@ class UserController extends Controller
 
 	/**
 	 * Display a listing of the resource.
-	 *
-	 * @return Response
+	 * @param  \Illuminate\Http\Request
+	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request)
 	{
-  		if ( Shinobi::can( config('mnara.acl.user.index', false) ) ) {
+  		if ( Auth::user()->can( config('mnara.acl.user.index', false) ) ) {
 			if ( $request->has('search_value') ) {
 				$value = $request->get('search_value');
-				$users = $this->model::where('name', 'LIKE', '%'.$value.'%')
+				$users = $this->model->where('name', 'LIKE', '%'.$value.'%')
 					->orderBy('name')->paginate( config('mnara.pagination.users', 15) );
 				session()->flash('search_value', $value);
 			} else {
-				$users = $this->model::orderBy('name')->paginate( config('mnara.pagination.users', 15) );
+				$users = $this->model->orderBy('name')->paginate( config('mnara.pagination.users', 15) );
 				session()->forget('search_value');	
 			}
 			
@@ -71,11 +72,11 @@ class UserController extends Controller
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function create()
 	{
-	 	if ( Shinobi::can( config('mnara.acl.user.create', false) ) ) {
+	 	if ( Auth::user()->can( config('mnara.acl.user.create', false) ) ) {
 			return view( config('mnara.views.users.create') );
 	 	}
 
@@ -85,16 +86,16 @@ class UserController extends Controller
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
+	 * @param \Tyondo\Mnara\Requests\UserStoreRequest
+	 * @return \Illuminate\Http\Response
 	 */
 	public function store(UserStoreRequest $request)
 	{
 		$level = "danger";
 		$message = " You are not permitted to create users.";
 
-		if ( Shinobi::can ( config('mnara.acl.user.create', false) ) ) {
-			$this->model::create($request->all());
+		if ( Auth::user()->can ( config('mnara.acl.user.create', false) ) ) {
+			$this->model->create($request->all());
 			$level = "success";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! User created.";
 		}
@@ -107,12 +108,12 @@ class UserController extends Controller
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id)
 	{
-  		if ( Shinobi::canAtLeast( [ config('mnara.acl.user.show', false),  config('mnara.acl.user.edit', false) ] ) ) {
-			$resource = $this->model::findOrFail($id);
+  		if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.show', false),  config('mnara.acl.user.edit', false) ] ) ) {
+			$resource = $this->model->findOrFail($id);
 			$show = "1";
 			return view( config('mnara.views.users.show'), compact('resource','show') );
 	 	}
@@ -124,12 +125,12 @@ class UserController extends Controller
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id)
 	{
-  		if ( Shinobi::canAtLeast( [ config('mnara.acl.user.edit', false),  config('mnara.acl.user.show', false) ] ) ) {
-			$resource = $this->model::findOrFail($id);
+  		if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.edit', false),  config('mnara.acl.user.show', false) ] ) ) {
+			$resource = $this->model->findOrFail($id);
 			$show = "0";
 			return view( config('mnara.views.users.edit'), compact('resource','show') );
 	 	}
@@ -141,15 +142,15 @@ class UserController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function update($id, UserUpdateRequest $request)
 	{
 		$level = "danger";
 		$message = " You are not permitted to update users.";
 
-		if ( Shinobi::can ( config('mnara.acl.user.edit', false) ) ) {
-			$user = $this->model::findOrFail($id);
+		if ( Auth::user()->can ( config('mnara.acl.user.edit', false) ) ) {
+			$user = $this->model->findOrFail($id);
 			if ($request->get('password') == '') {
         		$user->update( $request->except('password') );
     		} else {
@@ -167,15 +168,15 @@ class UserController extends Controller
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
 	{
 		$level = "danger";
 		$message = " You are not permitted to destroy user objects";
 
-		if ( Shinobi::can ( config('mnara.acl.user.destroy', false) ) ) {
-			$this->model::destroy($id);
+		if ( Auth::user()->can ( config('mnara.acl.user.destroy', false) ) ) {
+			$this->model->destroy($id);
 			$level = "warning";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! User deleted.";
 		}
@@ -188,12 +189,12 @@ class UserController extends Controller
 	 * Show the form for editing the user roles.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function editUserRoles($id)
 	{
-  		if ( Shinobi::can( config('mnara.acl.user.role', false) ) ) {
-			$user = $this->model::findOrFail($id);
+  		if ( Auth::user()->can( config('mnara.acl.user.role', false) ) ) {
+			$user = $this->model->findOrFail($id);
 
 			$roles = $user->roles;
 
@@ -211,15 +212,15 @@ class UserController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function updateUserRoles($id, Request $request)
 	{
 		$level = "danger";
 		$message = " You are not permitted to update user roles.";
 
-		if ( Shinobi::can ( config('mnara.acl.user.role', false) ) ) {
-			$user = $this->model::findOrFail($id);
+		if ( Auth::user()->can ( config('mnara.acl.user.role', false) ) ) {
+			$user = $this->model->findOrFail($id);
 			if ($request->has('ids')) {
 				$user->roles()->sync( $request->get('ids') );
 			} else {
@@ -235,13 +236,13 @@ class UserController extends Controller
 
 	/**
 	 * [userMatrix description]
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function showUserMatrix()
 	{
-  		if ( Shinobi::can( config('mnara.acl.user.viewmatrix', false) ) ) {
+  		if ( Auth::user()->can( config('mnara.acl.user.viewmatrix', false) ) ) {
 			$roles = Role::all();
-			$users = $this->model::orderBy('name')->get();
+			$users = $this->model->orderBy('name')->get();
 			$us = DB::table('role_user')->select('role_id as r_id','user_id as u_id')->get();
 
 			$pivot = [];
@@ -257,14 +258,14 @@ class UserController extends Controller
 
 	/**
 	 * [updateMatrix description]
-	 * @return Response
+	 * @return \Illuminate\Http\Response
 	 */
 	public function updateUserMatrix(Request $request)
 	{		
 		$level = "danger";
 		$message = " You are not permitted to update user roles.";
 
-		if ( Shinobi::can ( config('mnara.acl.user.usermatrix', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.user.usermatrix', false) ) ) {
 			$bits = $request->get('role_user');
 			foreach($bits as $v) {
 				$p = explode(":", $v);

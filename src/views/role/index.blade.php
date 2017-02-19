@@ -4,7 +4,7 @@
 
     <h1>Roles
     <div class="btn-group pull-right" role="group" aria-label="...">
-      @if ( Shinobi::can( config('mnara.acl.role.viewmatrix', false) ) )
+      @if ( Auth::user()->can( config('mnara.acl.role.viewmatrix', false) ) )
       <a href="{{ route( config('mnara.route.as') .'role.matrix') }}">
       <button type="button" class="btn btn-default">
         <i class="fa fa-th fa-fw"></i> 
@@ -12,7 +12,7 @@
       </button></a>
       @endif
 
-      @if ( Shinobi::can( config('mnara.acl.role.create', false) ) )
+      @if ( Auth::user()->can( config('mnara.acl.role.create', false) ) )
         <a href="{{ route( config('mnara.route.as') .'role.create') }}">
         <button type="button" class="btn btn-info">
           <i class="fa fa-plus fa-fw"></i> 
@@ -48,7 +48,7 @@
                 </td>
                 
                 <td>
-                    @if ( Shinobi::can( config('mnara.acl.role.permission', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.role.permission', false)) )
                     <a href="{{ route( config('mnara.route.as') .'role.permission.edit', $item->id) }}">
                       <button type="button" class="btn btn-primary btn-xs">
                       <i class="fa fa-key fa-fw"></i> 
@@ -56,7 +56,7 @@
                       </button></a>
                     @endif
 
-                    @if ( Shinobi::can( config('mnara.acl.role.user', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.role.user', false)) )
                     <a href="{{ route( config('mnara.route.as') .'role.user.edit', $item->id) }}">
                       <button type="button" class="btn btn-primary btn-xs">
                       <i class="fa fa-user fa-fw"></i> 
@@ -64,7 +64,7 @@
                       </button></a>
                     @endif
 
-                    @if ( Shinobi::can( config('mnara.acl.role.edit', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.role.edit', false)) )
                     <a href="{{ route( config('mnara.route.as') .'role.edit', $item->id) }}">
                       <button type="button" class="btn btn-default btn-xs">
                       <i class="fa fa-pencil fa-fw"></i> 
@@ -72,7 +72,7 @@
                       </button></a>
                     @endif
 
-                    @if ( Shinobi::can( config('mnara.acl.role.destroy', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.role.destroy', false)) )
                       {!! Form::open(['method'=>'delete','route'=> [ config('mnara.route.as') .'role.destroy',$item->id], 'style' => 'display:inline']) !!}
                         <button type="submit" class="btn btn-danger btn-xs">
                         <i class="fa fa-trash-o fa-lg"></i> 

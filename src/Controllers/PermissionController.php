@@ -3,6 +3,7 @@
 namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Shinobi;
 
@@ -30,7 +31,7 @@ class PermissionController extends Controller
 	 */
 	public function index()
 	{
-		if ( Shinobi::can( config('mnara.acl.permission.index', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.permission.index', false) ) ) {
 			$permissions = $this->getData();
 			
 			return view( config('mnara.views.permissions.index'), compact('permissions') );
@@ -67,7 +68,7 @@ class PermissionController extends Controller
 	 */
 	public function create()
 	{
-		if ( Shinobi::can( config('mnara.acl.permission.create', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.permission.create', false) ) ) {
 			return view( config('mnara.views.permissions.create') )
 						->with('route', $this->route);
 		}
@@ -85,7 +86,7 @@ class PermissionController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to create permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.permission.create', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.permission.create', false) ) ) {
 			Permission::create($request->all());
 			$level = "success";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! Permission created.";
@@ -103,7 +104,7 @@ class PermissionController extends Controller
 	 */
 	public function show($id)
 	{
-		if ( Shinobi::canAtLeast( [ config('mnara.acl.permission.edit', false),  config('mnara.acl.permission.show', false)] ) ) {
+		if ( Auth::user()->canAtLeast( [ config('mnara.acl.permission.edit', false),  config('mnara.acl.permission.show', false)] ) ) {
 			$resource = Permission::findOrFail($id);
 			$show = "1";
 			$route = $this->route;
@@ -122,7 +123,7 @@ class PermissionController extends Controller
 	 */
 	public function edit($id)
 	{
-		if ( Shinobi::canAtLeast( [ config('mnara.acl.permission.edit', false),  config('mnara.acl.permission.show', false)] ) ) {
+		if ( Auth::user()->canAtLeast( [ config('mnara.acl.permission.edit', false),  config('mnara.acl.permission.show', false)] ) ) {
 			$resource = Permission::findOrFail($id);
 			$show = "0";
 			$route = $this->route;
@@ -144,7 +145,7 @@ class PermissionController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.permission.edit', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.permission.edit', false) ) ) {
 			$permission = Permission::findOrFail($id);
 			$permission->update($request->all());
 			$level = "success";
@@ -166,7 +167,7 @@ class PermissionController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to destroy permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.permission.destroy', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.permission.destroy', false) ) ) {
 			Permission::destroy($id);
 			$level = "warning";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! Permission deleted.";
@@ -184,7 +185,7 @@ class PermissionController extends Controller
 	 */
 	public function editRole($id)
 	{
- 		if ( Shinobi::can( config('mnara.acl.permission.role', false) ) ) {
+ 		if ( Auth::user()->can( config('mnara.acl.permission.role', false) ) ) {
 			$permission = Permission::findOrFail($id);
 
 			$roles = $permission->roles;
@@ -210,7 +211,7 @@ class PermissionController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.permission.role', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.permission.role', false) ) ) {
 			$permission = Permission::findOrFail($id);
 			if ($request->has('slug')) {
 				$permission->roles()->sync( $request->get('slug') );

@@ -39,7 +39,7 @@
                 </td>
                 
                 <td>
-                    @if ( Shinobi::can( config('mnara.acl.user.role', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.user.role', false)) )
                     <a href="{{ route('mnara.user.role.edit', $item->id) }}">
                       <button type="button" class="btn btn-primary btn-xs">
                       <i class="fa fa-users fa-fw"></i> 
@@ -47,7 +47,7 @@
                       </button></a>
                     @endif
 
-                    @if ( Shinobi::can( config('mnara.acl.user.edit', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.user.edit', false)) )
                     <a href="{{ route('mnara.user.edit', $item->id) }}">
                       <button type="button" class="btn btn-default btn-xs">
                       <i class="fa fa-pencil fa-fw"></i> 
@@ -56,7 +56,7 @@
                     @endif
 
 
-                    @if ( Shinobi::can( config('mnara.acl.user.destroy', false)) )
+                    @if ( Auth::user()->can( config('mnara.acl.user.destroy', false)) )
                     {!! Form::open(['method'=>'delete','route'=> ['mnara.user.destroy',$item->id], 'style' => 'display:inline']) !!}
                       <button type="submit" class="btn btn-danger btn-xs">
                       <i class="fa fa-trash-o fa-lg"></i> 

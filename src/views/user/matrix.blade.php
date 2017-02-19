@@ -57,7 +57,7 @@
         </table>
     </div>
 
-    @if ( Shinobi::can( config('mnara.acl.user.usermatrix', false)) )
+    @if ( Auth::user()->can( config('mnara.acl.user.usermatrix', false)) )
       <div class="form-group">
           <div class="col-sm-3">
               {!! Form::submit('Save User Role Changes', ['class' => 'btn btn-primary form-control']) !!}

@@ -3,10 +3,12 @@
 namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-use Illuminate\Support\Facades\DB;
-use Shinobi;
+
+//use Shinobi;
 
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
@@ -35,7 +37,7 @@ class RoleController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		if ( Shinobi::can( config('mnara.acl.role.index', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.role.index', false) ) ) {
 			$roles = $this->getData();
 
 			return view( config('mnara.views.roles.index'), compact('roles') );
@@ -72,7 +74,7 @@ class RoleController extends Controller
 	 */
 	public function create()
 	{
-		if ( Shinobi::can( config('mnara.acl.role.create', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.role.create', false) ) ) {
 			return view( config('mnara.views.roles.create') )
 				->with('route', $this->route);
 		}
@@ -90,7 +92,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to create roles.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.create', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.create', false) ) ) {
 			Role::create($request->all());
 			$level = "success";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! Role created.";
@@ -108,7 +110,7 @@ class RoleController extends Controller
 	 */
 	public function show($id)
 	{
-		if ( Shinobi::canAtLeast( [ config('mnara.acl.role.edit', false),  config('mnara.acl.role.show', false)] ) ) {
+		if ( Auth::user()->canAtLeast( [ config('mnara.acl.role.edit', false),  config('mnara.acl.role.show', false)] ) ) {
 			$resource = Role::findOrFail($id);
 			$show = "1";
 			$route = $this->route;
@@ -126,7 +128,7 @@ class RoleController extends Controller
 	 */
 	public function edit($id)
 	{
-		if ( Shinobi::canAtLeast( [ config('mnara.acl.role.edit', false),  config('mnara.acl.role.show', false)] ) ) {
+		if ( Auth::user()->canAtLeast( [ config('mnara.acl.role.edit', false),  config('mnara.acl.role.show', false)] ) ) {
 			$resource = Role::findOrFail($id);
 			$show = "0";
 			$route = $this->route;
@@ -148,7 +150,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update roles.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.edit', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.edit', false) ) ) {
 			$role = Role::findOrFail($id);
 			$role->update($request->all());
 			$level = "success";
@@ -170,7 +172,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to destroy roles.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.destroy', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.destroy', false) ) ) {
 			Role::destroy($id);
 			$level = "warning";
 			$message = "<i class='fa fa-check-square-o fa-1x'></i> Success! Role deleted.";
@@ -188,7 +190,7 @@ class RoleController extends Controller
 	 */
 	public function editRolePermissions($id)
 	{
-		if ( Shinobi::can( config('mnara.acl.role.permissions', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.role.permissions', false) ) ) {
 			$role = Role::findOrFail($id);
 
 			$permissions = $role->permissions;
@@ -214,7 +216,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update role permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.permissions', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.permissions', false) ) ) {
 			$role = Role::findOrFail($id);
 			if ($request->has('slug')) {
 				$role->permissions()->sync( $request->get('slug') );
@@ -237,7 +239,7 @@ class RoleController extends Controller
 	 */
 	public function editRoleUsers($id)
 	{
-		if ( Shinobi::can( config('mnara.acl.role.users', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.role.users', false) ) ) {
 			$role = Role::findOrFail($id);
 
 			$users = $role->users;
@@ -263,7 +265,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update role users.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.users', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.users', false) ) ) {
 			$role = Role::findOrFail($id);
 			if ($request->has('slug')) {
 				$role->users()->sync( $request->get('slug') );
@@ -284,7 +286,7 @@ class RoleController extends Controller
 	 */
 	public function showRoleMatrix()
 	{
-		if ( Shinobi::can( config('mnara.acl.role.viewmatrix', false) ) ) {
+		if ( Auth::user()->can( config('mnara.acl.role.viewmatrix', false) ) ) {
 			$roles = Role::all();
 			$perms = Permission::all();
 			$prs = DB::table('permission_role')->select('role_id as r_id','permission_id as p_id')->get();
@@ -309,7 +311,7 @@ class RoleController extends Controller
 		$level = "danger";
 		$message = " You are not permitted to update role permissions.";
 
-		if ( Shinobi::can ( config('mnara.acl.role.permissions', false) ) ) {
+		if ( Auth::user()->can ( config('mnara.acl.role.permissions', false) ) ) {
 			$bits = $request->get('perm_role');
 			foreach($bits as $v) {
 				$p = explode(":", $v);

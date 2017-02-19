@@ -38,16 +38,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The roles that have the permissions.
-     */
-/*
-        public function roles()
-        {
-        return $this->belongsToMany('Tyondo\Mnara\Models\Role');
-        //return $this->belongsToMany('Spatie\Permission\Models\Role');
-
-        }
- */
 
 }

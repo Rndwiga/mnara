@@ -27,7 +27,7 @@ class Permission extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany('\Caffeinated\Shinobi\Models\Role')->withTimestamps();
+        return $this->belongsToMany('\Tyondo\Mnara\Models\Role')->withTimestamps();
     }
 
     /**

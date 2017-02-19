@@ -141,7 +141,7 @@
 	<hr/>
 
 	<div class="container">
-	    <p class="text-muted">{{ date('Y') }} Smarch Software</p>
+	    <p class="text-muted">{{ date('Y') }} Tyondo App</p>
 	    <br/>
 	</div>
 
