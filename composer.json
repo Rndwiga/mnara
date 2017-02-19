@@ -1,9 +1,9 @@
 {
 	"name": "tyondo/mnara",
 	"type": "package",
-    "description": "Front-end for the Shinboi Auth system of Users / Roles / Permissions in Laravel 5",
+    "description": "Front-end for the Shinboi Auth system of Users / Roles / Permissions in Laravel 5.3 and 5.4",
     "keywords": ["authorization", "rbac", "permissions", "roles", "gui", "admin", "shinobi", "laravel"],
-    "homepage": "https://github.com/SmarchSoftware/watchtower",
+    "homepage": "https://github.com/Rndwiga/mnara",
     "authors": [
         {
             "name": "Raphael Ndwiga",

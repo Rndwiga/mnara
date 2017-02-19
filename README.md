@@ -15,63 +15,31 @@ A laravel 5.3^ complete user package. It has the following:
 - Sync permissions
 - Manage roles and permission
 - Manage users
-## Usage
+## Usage Live
 
 1. Install the package via composer (for production)
 ````
 composer require tyondo/mnara
 ````
 
-2- Change 
-
-3- Customize **Package/PackageServiceProvider** with the correct namespace and the name of your package, and replace the $packageNamespace attribute.
-
-```php
-
-    protected $packageName = 'yourpackagename';
-
-```
-
-4- Add the package in your application's **composer.json** autoload section to make it available in your application. 
-
-```
-
-"psr-4": {
-            "App\\": "app/",
-            "Vendor\\Package\\": "packages/vendor/package/src/Package"
-        }
-
-```
-
-5- Run :
-
-```
-composer dump-autoload
-```
-
-6- Add the newly create package's service provider to your **config/app.php** provider's list.
-
-7- Have fun!
-
-## Package dependencies
-
-Laravel won't autoload the **vendor/** path in your package's development folder. Easiest workaround is to add them in your main application's composer.json.
-
-But also ensure they are in the package json file
-
-Resources:
-http://dimsav.com/blog/9/git-repository-inside-composer-vendors
-
-https://murze.be/2015/05/creating-packages/
-
-https://mattstauffer.co/blog/conditionally-loading-service-providers-in-laravel-5
-````````
-$ git remote
-composer
-origin
-$ git push origin development
-````````
-
+2- Change the app/auth.php User Providers list from
+````
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+     ]
+````
+to
+````
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => Tyondo\Mnara\Models\User::class,
+        ],
+     ]
+````
 ## Installation
 1. add the following files to the config/app.php file
 ````
@@ -116,6 +84,57 @@ Change the default auth provider in app\auth.php
 ````
 'model' => Tyondo\Mnara\Models\User::class,
 ````
+## Usage Production
+1- create **packages** folder in the root directory of your laravel installation
+
+2- inside package create **tyondo** folder.
+ 
+3- inside **tyondo** folder run:
+````
+git clone https://github.com/Rndwiga/mnara.git
+````
+
+4- Add the package in your application's **composer.json** autoload section to make it available in your application. 
+```
+"psr-4": {
+            "App\\": "app/",
+            "Tyondo\\Mnara\\": "packages/tyondo/mnara/src"
+        }
+```
+
+5- Run :
+
+```
+composer dump-autoload
+```
+
+6- Add the package service provider in your **config/app.php** file
+````
+Tyondo\Mnara\MnaraServiceProvider::class, //Mnara
+````
+
+7- Have fun!
+
+## Package dependencies
+
+Laravel won't autoload the **vendor/** path in your package's development folder. Easiest workaround is to add them in your main application's composer.json.
+
+But also ensure they are in the package json file
+
+Resources:
+http://dimsav.com/blog/9/git-repository-inside-composer-vendors
+
+https://murze.be/2015/05/creating-packages/
+
+https://mattstauffer.co/blog/conditionally-loading-service-providers-in-laravel-5
+````````
+$ git remote
+composer
+origin
+$ git push origin development
+````````
+
+
 ##notes
 Within the boot method, you may do whatever you like: register event listeners, include a routes file, register filters, or anything else you can imagine.”
 
