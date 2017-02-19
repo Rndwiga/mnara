@@ -35,14 +35,21 @@ class UserStoreRequest extends Request
      */
     public function rules()
     {
-  
-       $rules = array_merge([
+        return [
             'name' => 'required|max:255|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:6',
-        ], config('watchtower.user.rules.store') );
+        ];
+  
+     /*
+      *   $rules = array_merge([
+            'name' => 'required|max:255|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ], config('mnara.user.rules.store') );
 
        return $rules;
+      * */
        
     }
 }

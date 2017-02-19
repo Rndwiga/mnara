@@ -79,7 +79,6 @@ Route::group( [
     |	Mnara Interface Routes
     |-------------------------------------------------------------------------
     */
-    //Route::get('mnara', 'MnaraController@index')->name( config('mnara.route.prefix') . 'index');
     Route::get('mnara', 'Tyondo\Mnara\Controllers\MnaraController@index')->name( config('mnara.route.prefix') . 'index');
 
 });

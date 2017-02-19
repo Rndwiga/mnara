@@ -164,8 +164,8 @@ return [
         ],
 
         'users' => [
-            // 'index'     => 'mnara::user.index',
-            'index'     => 'vendor.mnara.user.index',
+             'index'     => 'mnara::user.index',
+            //'index'     => 'vendor.mnara.user.index',
             'create'    => 'mnara::user.create',
             //'create'    => 'vendor.mnara.user.create',
             'show'      => 'mnara::user.edit',
@@ -296,6 +296,6 @@ return [
         'prefix'    => '',
         'as'        => 'mnara.',
         //'middleware'=> ( str_contains( app()->version(), '5.3') ? ['web'] : ['auth'] )
-        'middleware'=> 'auth'
+        'middleware'=> 'web'
     ]
 ];

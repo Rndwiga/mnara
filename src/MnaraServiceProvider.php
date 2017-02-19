@@ -8,20 +8,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 
 /**
- * A Laravel package package template.
+ * A Laravel 5.3 user package
  *
  * @author: Rndwiga
  */
 class MnaraServiceProvider extends ServiceProvider {
-
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'Tyondo\Mnara\Controllers';
 
     /**
      * This will be used to register config & view in 
@@ -53,7 +44,6 @@ class MnaraServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        // include __DIR__.'/webRoutes.php';
         //loading routes
         $this->loadRoutesFrom(__DIR__.'/webRoutes.php');
         // Merge config files
@@ -106,14 +96,9 @@ class MnaraServiceProvider extends ServiceProvider {
     {
         //registering package service providers and aliases
         $this->registerServiceProviders();
+        $this->registerMiddleware();
         $this->registerAliases();
-        /*
-         * if (! $this->app->routesAreCached()) {
-            require __DIR__.'/webRoutes.php';
-        }
-         * */
 
-		        // View Composer
         // Register it
         $this->app->singleton('mnara', function() {
              return new Mnara;
@@ -140,5 +125,14 @@ class MnaraServiceProvider extends ServiceProvider {
             $loader->alias($key, $alias);
         }
     }
+    /**
+     * @return void
+     */
+    private function registerMiddleware()
+    {
+        $this->app['router']->middleware('roleshinobi', 'Caffeinated\Shinobi\Middleware\UserHasRole');
+        $this->app['router']->middleware('permissionshinobi', 'Caffeinated\Shinobi\Middleware\UserHasPermission');
+    }
+
 
 }

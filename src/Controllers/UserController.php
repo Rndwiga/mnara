@@ -14,6 +14,7 @@ use Tyondo\Mnara\Models\Permission;
 
 
 use Tyondo\Mnara\Requests\UserStoreRequest;
+use Tyondo\Mnara\Requests\UserUpdateRequest;
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;
 

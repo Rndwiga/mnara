@@ -108,8 +108,22 @@
 								<li><a href="#"><i class="fa fa-hand-stop-o fa-xs"></i> No roles</a></li>
 							@endforelse    						
     						<li role="separator" class="divider"></li>
-				            <li><a href="{{ url( config('mnara.auth_routes.logout') ) }}"><i class="fa fa-fw fa-sign-out"></i> Logout</a></li>
-				          </ul>
+
+				            <li>
+                                {{--<a href="{{ url( config('mnara.auth_routes.logout') ) }}"><i class="fa fa-fw fa-sign-out"></i> Logout</a>--}}
+
+                                <a href="{{ url(config('mnara.auth_routes.logout')) }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-fw fa-sign-out"></i> Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ url(config('mnara.auth_routes.logout')) }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+
+						  </ul>
 				        </li>
 					@endif
 				</ul>
