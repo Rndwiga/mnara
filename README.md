@@ -1,4 +1,13 @@
-# Laravel 5.3 User Package
+Tyondo Mnara
+===================
+[![Laravel 5.3](https://img.shields.io/badge/Laravel-5.3-orange.svg?style=flat-square)](http://laravel.com)
+[![Laravel 5.4](https://img.shields.io/badge/Laravel--5.4-Supported-brightgreen.svg)](http://laravel.com)
+[![Source](http://img.shields.io/badge/source-tyondo/mnara-blue.svg?style=flat-square)](https://github.com/Rndwiga/mnara)
+[![GitHub tag](https://img.shields.io/github/tag/strongloop/express.svg)]()
+[![GitHub tag](https://img.shields.io/github/tag/strongloop/express.svg)]()
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
+
+## A user management package
 
 A laravel 5.3.^|5.4.^ complete user package. It has the following:
 - 2 config files
