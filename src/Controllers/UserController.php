@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Tyondo\Mnara\Helpers\MnaraHelper;
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
 
@@ -53,10 +54,10 @@ class UserController extends Controller
 				session()->forget('search_value');	
 			}
 			
-			return view( config('mnara.views.users.index'), compact('users') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.users.index'), compact('users') );
 	 	}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view user list' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view user list' ]);
 	}
 
 
@@ -68,10 +69,11 @@ class UserController extends Controller
 	public function create()
 	{
 	 	if ( Auth::user()->can( config('mnara.acl.user.create', false) ) ) {
-			return view( config('mnara.views.users.create') );
+			return MnaraHelper::isThemeSupportAvailable(config('mnara.views.users.create'));
+			//return view(config('mnara.views.users.create') );
 	 	}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new users' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new users' ]);
 
 	}
 
@@ -106,10 +108,10 @@ class UserController extends Controller
   		if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.show', false),  config('mnara.acl.user.edit', false) ] ) ) {
 			$resource = $this->model->findOrFail($id);
 			$show = "1";
-			return view( config('mnara.views.users.show'), compact('resource','show') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.users.show'), compact('resource','show') );
 	 	}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view users' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view users' ]);
 	}
 
 	/**
@@ -123,10 +125,10 @@ class UserController extends Controller
   		if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.edit', false),  config('mnara.acl.user.show', false) ] ) ) {
 			$resource = $this->model->findOrFail($id);
 			$show = "0";
-			return view( config('mnara.views.users.edit'), compact('resource','show') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.users.edit'), compact('resource','show') );
 	 	}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit users' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit users' ]);
 	}
 
 	/**
@@ -193,10 +195,10 @@ class UserController extends Controller
 			    $query->where('user_id', $id);
 			})->get();
 
-			return view( config('mnara.views.users.role'), compact('user', 'roles', 'available_roles') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.users.role'), compact('user', 'roles', 'available_roles') );
 		}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync user roles' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync user roles' ]);
 	}
 
 	/**
@@ -241,10 +243,10 @@ class UserController extends Controller
 				$pivot[] = $u->r_id.":".$u->u_id;
 			}
 
-			return view( config('mnara.views.users.usermatrix'), compact('roles','users','pivot') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.users.usermatrix'), compact('roles','users','pivot') );
 		}
 
-	 	return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync user roles' ]);
+	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync user roles' ]);
 	}
 
 	/**

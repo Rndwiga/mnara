@@ -2,7 +2,7 @@
 namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-
+use Tyondo\Mnara\Helpers\MnaraHelper;
 class MnaraController extends Controller
 {
     /**
@@ -15,9 +15,10 @@ class MnaraController extends Controller
       if ( Auth::user()->can( config('mnara.acl.mnara.index', false) ) ) {
           $dashboard = config('mnara.dashboard'); //links
           $title = config('mnara.site_title');  //title
-          return view(config('mnara.views.layouts.dashboard'), compact('dashboard', 'title'));
+
+         return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.dashboard'), compact('dashboard', 'title'));
         }
 
-        return view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view the dashboard' ]);
+        return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view the dashboard' ]);
     }
 }
