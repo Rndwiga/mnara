@@ -15,7 +15,7 @@
         @foreach ($chunk as $item)
             @include( config('mnara.views.layouts.adminlinks'), [ 'item' => $item ] )
         @endforeach
-    </div>
+        </div>
     <!-- /.row -->
     @endforeach
 

@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>The Watchtower</title>
+	<title>{{config('app.name')}}</title>
 	
 	<!-- styles -->
 	  <!-- Bootstrap core CSS -->
