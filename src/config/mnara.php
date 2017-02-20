@@ -37,7 +37,6 @@ return [
     */
     'user' => [
         'model' => Tyondo\Mnara\Models\User::class,
-        //'model' =>  App\User::class,
         'rules' => [
             'update' => [],
             'store'  => [],
@@ -130,7 +129,6 @@ return [
         ],
 
         'mnara' => [
-            //'index'         => 'show.mnara.index'
             'index'         => 'show.mnara.index'
         ]
     ],
@@ -148,64 +146,39 @@ return [
     'views' => [
         'layouts' => [
             'master'        => 'mnara::layouts.master',
-            // 'master'        => 'vendor.mnara.layouts.master',
             'flash'         => 'mnara::partials.flash',
-            // 'flash'         => 'vendor.mnara.partials.flash',
             'modal'         => 'mnara::partials.modal',
-            // 'modal'         => 'vendor.mnara.partials.modal',
             'search'        => 'mnara::partials.search',
-            //'search'        => 'vendor.mnara.partials.search',
             'dashboard'     => 'mnara::mnara.index',
-            //'dashboard'     => 'vendor.mnara.mnara.index',
             'adminlinks'    => 'mnara::mnara.links',
-            //'adminlinks'    => 'vendor.mnara.mnara.links',
             'unauthorized'  => 'mnara::partials.unauthorized',
-            //'unauthorized'  => 'vendor.mnara.partials.unauthorized',
         ],
 
         'users' => [
-             'index'     => 'mnara::user.index',
-            //'index'     => 'vendor.mnara.user.index',
+            'index'     => 'mnara::user.index',
             'create'    => 'mnara::user.create',
-            //'create'    => 'vendor.mnara.user.create',
             'show'      => 'mnara::user.edit',
-            //'show'      => 'vendor.mnara.user.edit',
             'edit'      => 'mnara::user.edit',
-            //'edit'      => 'vendor.mnara.user.edit',
-             'role'      => 'mnara::user.role',
-            //'role'      => 'vendor.mnara.user.role',
+            'role'      => 'mnara::user.role',
             'usermatrix'=> 'mnara::user.matrix'
-            //'usermatrix'=> 'vendor.mnara.user.matrix'
         ],
 
         'roles' => [
             'index'     => 'mnara::role.index',
-            //'index'     => 'vendor.mnara.role.index',
             'create'    => 'mnara::partials.create',
-            // 'create'    => 'vendor.mnara.partials.create',
             'show'      => 'mnara::partials.edit',
-            // 'show'      => 'vendor.mnara.partials.edit',
             'edit'      => 'mnara::partials.edit',
-            //'edit'      => 'vendor.mnara.partials.edit',
             'user'      => 'mnara::role.user',
-            //'user'      => 'vendor.mnara.role.user',
             'rolematrix'=> 'mnara::role.matrix',
-            //'rolematrix'=> 'vendor.mnara.role.matrix',
             'permission'=> 'mnara::role.permission'
-            //'permission'=> 'vendor.mnara.role.permission'
         ],
 
         'permissions' => [
             'index'     => 'mnara::permission.index',
-            //'index'     => 'vendor.mnara.permission.index',
             'create'    => 'mnara::partials.create',
-            //'create'    => 'vendor.mnara.partials.create',
             'show'      => 'mnara::partials.edit',
-            //'show'      => 'vendor.mnara.partials.edit',
             'edit'      => 'mnara::partials.edit',
-            // 'edit'      => 'vendor.mnara.partials.edit',
             'role'      => 'mnara::permission.role'
-            //'role'      => 'vendor.mnara.permission.role'
         ]
     ],
 
@@ -270,7 +243,7 @@ return [
     |-------------------------
     |
     | If you want to prefix all your mnara routes, enter the prefix here.
-    | https://laravel.com/docs/5.2/routing#route-group-prefixes for info.
+    | https://laravel.com/docs/5.3/routing#route-group-prefixes for info.
     |
     | i.e 'route_prefix' => 'admin' will change your urls to look
     | like 'http://<yoursite>/admin/mnara/user' instead of
@@ -279,11 +252,9 @@ return [
     |-------------------------
     | Middleware :
     |-------------------------
-    | An array of middlewares you wish to pass in to the group. Laravel 5.2
+    | An array of middlewares you wish to pass in to the group. Laravel 5.3 and 5.4
     | by default requires that the "web" middleware be use for any routes
-    | that need access to session (or 'logged in' won't stay that way.)
-    |
-    | Laravel 5.1 uses "auth" for authentication and so that is passed.
+    | that need access to session, csrf protection and cookies
     |
     |-------------------------
     | As :
@@ -295,7 +266,6 @@ return [
     'route' => [
         'prefix'    => '',
         'as'        => 'mnara.',
-        //'middleware'=> ( str_contains( app()->version(), '5.3') ? ['web'] : ['auth'] )
-        'middleware'=> 'web'
+        'middleware'=> ['web', 'auth']
     ]
 ];
