@@ -7,8 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Tyondo\Mnara\Traits\MnaraTrait;
 
-//use Spatie\Permission\Traits\HasRoles;
-
 class User extends Authenticatable
 {
     use Notifiable;

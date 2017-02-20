@@ -50,7 +50,7 @@ to
 ## Installation
 1. add the following files to the config/app.php file
 ````
-Tyondo\Mnara\MnaraServiceProvider::class, //Mnara
+Tyondo\Mnara\MnaraServiceProvider::class,
 ````
 Facades
 ````
@@ -128,12 +128,7 @@ Laravel won't autoload the **vendor/** path in your package's development folder
 
 But also ensure they are in the package json file
 
-Resources:
-http://dimsav.com/blog/9/git-repository-inside-composer-vendors
 
-https://murze.be/2015/05/creating-packages/
-
-https://mattstauffer.co/blog/conditionally-loading-service-providers-in-laravel-5
 ````````
 $ git remote
 composer

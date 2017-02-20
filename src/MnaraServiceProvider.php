@@ -132,8 +132,8 @@ class MnaraServiceProvider extends ServiceProvider {
      */
     private function registerMiddleware()
     {
-        $this->app['router']->middleware('roleMnara', 'Tyondo\Mnara\Middleware\UserHasRole');
-        $this->app['router']->middleware('permissionMnara', 'Tyondo\Mnara\Middleware\UserHasPermission');
+        $this->app['router']->middleware('role_mnara', 'Tyondo\Mnara\Middleware\UserHasRole');
+        $this->app['router']->middleware('permission_mnara', 'Tyondo\Mnara\Middleware\UserHasPermission');
     }
     protected function registerBladeDirectives()
     {
