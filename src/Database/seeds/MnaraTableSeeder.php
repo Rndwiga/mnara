@@ -16,29 +16,29 @@ class MnaraTableSeeder extends Seeder
         // roles
         $roles = [
             [ 
-                'name'          => 'Administrators',
-                'slug'          => 'admin',
+                'name'          => 'Root User',
+                'slug'          => 'root',
                 'description'   => 'Have all access to all areas',
                 'special'       => 'all-access',
             ],
 
             [
-                'name'          => 'Moderators',
-                'slug'          => 'moderator',
+                'name'          => 'Administrator',
+                'slug'          => 'admin',
                 'description'   => 'Some admin area access',
                 'special'       => null,
             ],
 
             [
-                'name'          => 'General Users',
+                'name'          => 'User',
                 'slug'          => 'user',
                 'description'   => 'No admin access',
                 'special'       => null,
             ],
 
             [
-                'name'          => 'Banned',
-                'slug'          => 'banned',
+                'name'          => 'Deactivated',
+                'slug'          => 'deactivated',
                 'description'   => 'Have no access to any areas',
                 'special'       => 'no-access',
             ]

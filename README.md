@@ -52,7 +52,7 @@ Facades
 ````
 Publish tyondo/mnara config files
 ````
-php artisan vendor:publish --tag=migration
+php artisan vendor:publish --tag=migrations
 php artisan vendor:publish --tag=config
 php artisan vendor:publish --tag=config-menu
 ````
@@ -73,9 +73,17 @@ Seed the database with default permission and roles
 php artisan db:seed --class="Tyondo\Mnara\Database\seeds\MnaraTableSeeder"
 ````
 Change the default auth provider in app\auth.php
+
+## Error Resolution
+If upon running php artisan migrate you ran to the error below:
 ````
-'model' => Tyondo\Mnara\Models\User::class,
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table `users
+  ` add unique `users_email_unique`(`email`))
 ````
+add the following lines to your app\Providers\AppServiceProvider.php file
+use Illuminate\Support\Facades\Schema;
+in the boot function() add Schema::defaultStringLength(191);
+  
 ## Usage Production
 1- create **packages** folder in the root directory of your laravel installation
 

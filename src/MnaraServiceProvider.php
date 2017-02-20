@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
+//use Illuminate\Support\Facades\Schema;
 //use Illuminate\Support\Facades\Config;
 //use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,8 @@ class MnaraServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        //loading routes
+        //Schema::defaultStringLength(191);
+		//loading routes
         $this->loadRoutesFrom(__DIR__.'/webRoutes.php');
         // Merge config files
         $this->mergeConfigFrom(__DIR__.'/config/mnara.php', $this->packageName);
@@ -81,7 +83,7 @@ class MnaraServiceProvider extends ServiceProvider {
 		
         // Register your migration's publisher
         $this->publishes([
-            __DIR__.'/../database/migrations/' => base_path('/database/migrations')
+            __DIR__.'/Database/migrations/' => base_path('/database/migrations')
         ], 'migrations');
     }
 
