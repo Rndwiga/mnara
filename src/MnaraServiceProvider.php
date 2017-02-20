@@ -51,13 +51,13 @@ class MnaraServiceProvider extends ServiceProvider {
     {
         //Schema::defaultStringLength(191);
 		//loading routes
-        $this->loadRoutesFrom(__DIR__.'/webRoutes.php');
+        $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
         // Merge config files
-        $this->mergeConfigFrom(__DIR__.'/config/mnara.php', $this->packageName);
-        $this->mergeConfigFrom(__DIR__.'/config/mnara-menu.php', $this->packageName.'-menu');
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', $this->packageName);
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara-menu.php', $this->packageName.'-menu');
         // Register your assets
         $this->publishes([
-            __DIR__.'/../assets' => public_path('vendor/'.$this->packageName),
+            __DIR__.'/Assets' => public_path('vendor/'.$this->packageName),
         ], 'public');
 		
 		// Register Views
@@ -65,17 +65,17 @@ class MnaraServiceProvider extends ServiceProvider {
 		
         // Publish your config files
         $this->publishes([
-            __DIR__.'/config/mnara.php' => config_path($this->packageName.'.php')
+            __DIR__.'/Config/mnara.php' => config_path($this->packageName.'.php')
         ], 'config');
 		
         $this->publishes([
-            __DIR__.'/config/mnara-menu.php' => config_path($this->packageName.'-menu.php')
+            __DIR__.'/Config/mnara-menu.php' => config_path($this->packageName.'-menu.php')
         ], 'config-menu');
 		// Publish views
         $this->publishes([
             __DIR__.'/Views' => base_path('resources/views/vendor/'.$this->packageName)
         ], 'views');
-
+    //composer for determining which theme to use
         $this->app['view']->composer('*',function($view){
             $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
             $view->title = $this->app['config']->get('mnara.site_title');

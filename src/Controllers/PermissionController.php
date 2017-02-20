@@ -4,9 +4,6 @@ namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use Shinobi;
-
 
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;

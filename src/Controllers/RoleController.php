@@ -5,16 +5,10 @@ namespace Tyondo\Mnara\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-
-
-//use Shinobi;
 
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
-//use Spatie\Permission\Models\Role;
-//use Spatie\Permission\Models\Permission;
 
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;

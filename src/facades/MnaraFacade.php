@@ -1,4 +1,4 @@
-<?php namespace Tyondo\Mnara;
+<?php namespace Tyondo\Mnara\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

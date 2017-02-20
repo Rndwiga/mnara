@@ -2,7 +2,7 @@
 
 namespace Tyondo\Mnara;
 
-use Caffeinated\Shinobi\Models\Role;
+use Tyondo\Mnara\Models\Role;
 use Illuminate\Contracts\Auth\Guard;
 
 class Mnara
