@@ -66,9 +66,8 @@ class PermissionController extends Controller
 	public function create()
 	{
 		if ( Auth::user()->can( config('mnara.acl.permission.create', false) ) ) {
-			return view( config('mnara.views.permissions.create') )
-						->with('route', $this->route);
-           // return MnaraHelper::isThemeSupportAvailable(config('mnara.views.permissions.create')->with('route', $this->route));
+		    $route = $this->route;
+            return MnaraHelper::isThemeSupportAvailable(config('mnara.views.permissions.create'), compact('route'));
 		}
 
 		return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new permissions' ]);
@@ -197,7 +196,6 @@ class PermissionController extends Controller
 
 	 	return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync permission roles' ]);
 	}
-
 	/**
 	 * Update the specified resource in storage.
 	 *

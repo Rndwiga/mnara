@@ -55,11 +55,6 @@ class MnaraServiceProvider extends ServiceProvider {
         // Merge config files
         $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', $this->packageName);
         $this->mergeConfigFrom(__DIR__.'/Config/mnara-menu.php', $this->packageName.'-menu');
-        // Register your assets
-        $this->publishes([
-            __DIR__.'/Assets' => public_path('vendor/'.$this->packageName),
-        ], 'public');
-		
 		// Register Views
         $this->loadViewsFrom(__DIR__.'/views', $this->packageName);
 		
@@ -67,24 +62,31 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__.'/Config/mnara.php' => config_path($this->packageName.'.php')
         ], 'config');
-		
         $this->publishes([
             __DIR__.'/Config/mnara-menu.php' => config_path($this->packageName.'-menu.php')
-        ], 'config-menu');
+        ], 'config');
+        // publishing your assets
+        $this->publishes([
+            __DIR__.'/Assets/' => base_path('/public/vendor/'.$this->packageName),
+        ], 'mnara');
+
+        // Register your migration's publisher
+        $this->publishes([
+            __DIR__.'/Database/migrations/' => base_path('/database/migrations')
+        ], 'mnara');
 		// Publish views
         $this->publishes([
             __DIR__.'/Views' => base_path('resources/views/vendor/'.$this->packageName)
         ], 'views');
+
+
+
     //composer for determining which theme to use
         $this->app['view']->composer('*',function($view){
             $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
             $view->title = $this->app['config']->get('mnara.site_title');
         });
-		
-        // Register your migration's publisher
-        $this->publishes([
-            __DIR__.'/Database/migrations/' => base_path('/database/migrations')
-        ], 'migrations');
+
     }
 
     /**

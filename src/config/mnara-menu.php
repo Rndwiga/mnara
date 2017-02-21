@@ -76,14 +76,6 @@ return [
                   'class' => 'fa fa-fw fa-th-list',
                   'route' => 'mnara.permission.index'
                 ],
-
-                  'separator',
-                  
-                [
-                  'title' => 'Role Matrix',
-                  'class' => 'fa fa-fw fa-table',
-                  'route' => 'mnara.role.matrix'
-                ]
             ]
         ],
     ],

@@ -46,7 +46,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default bootstrap theme
+    | Themes : Bootswatch
     |--------------------------------------------------------------------------
     |
     | Choose the one you want from https://www.bootstrapcdn.com/bootswatch/
@@ -54,9 +54,18 @@ return [
     | Mnara will check if there is a "theme" defined in Auth->user()
     | and use that one if one is found, othewise it uses the default.
     |  options: cerulean, cosmo, cyborg, darkly, flatly, journal, lumen, paper, superhero, yeti,
-                united, spacelab, slate, simplex, sandstone, readable
+    |          united, spacelab, slate, simplex, sandstone, readable
     */
-    'default_theme' => 'cosmo',
+
+    /*
+    |--------------------------------------------------------------------
+    | Theme: Gentella
+    |----------------------------------------------------------------------------------
+    | The default theme used by Mnara is derived from  gentella a Free Bootstrap 3 Admin Template from
+    |    https://colorlib.com/polygon/gentelella/index.html
+    | To change from Gentella to Bootswatch, in the Mnara Views sections, comment out .master and comment .app
+    */
+
 
 
     /*
@@ -145,7 +154,8 @@ return [
     */
     'views' => [
         'layouts' => [
-            'master'        => 'mnara::layouts.master',
+            'master'        => 'mnara::layouts.app', //Gentella
+           // 'master'        => 'mnara::layouts.master', //Bootswatch
             'flash'         => 'mnara::partials.flash',
             'modal'         => 'mnara::partials.modal',
             'search'        => 'mnara::partials.search',

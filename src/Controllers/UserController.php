@@ -70,7 +70,6 @@ class UserController extends Controller
 	{
 	 	if ( Auth::user()->can( config('mnara.acl.user.create', false) ) ) {
 			return MnaraHelper::isThemeSupportAvailable(config('mnara.views.users.create'));
-			//return view(config('mnara.views.users.create') );
 	 	}
 
 	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new users' ]);

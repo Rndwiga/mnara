@@ -70,8 +70,9 @@ class RoleController extends Controller
 	public function create()
 	{
 		if ( Auth::user()->can( config('mnara.acl.role.create', false) ) ) {
-			return view( config('mnara.views.roles.create') )
-				->with('route', $this->route);
+		    $route = $this->route;
+		   // return view( config('mnara.views.roles.create'), compact('route') );
+			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.create'), compact('route') );
 		}
 
 		return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new roles' ]);
