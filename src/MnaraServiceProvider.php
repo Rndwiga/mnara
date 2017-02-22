@@ -32,6 +32,7 @@ class MnaraServiceProvider extends ServiceProvider {
      */
     protected $providers = [
         'Collective\Html\HtmlServiceProvider', // For Mnara Forms to function
+        'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider', //2fa
     ];
     /**
      * @var array
@@ -39,7 +40,8 @@ class MnaraServiceProvider extends ServiceProvider {
     protected $aliases = [
         'Form' => 'Collective\Html\FormFacade', // required for Mnara Forms
         'Html' => 'Collective\Html\HtmlFacade', // required for Mnara Forms
-        'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade' // not required, but available
+        'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade', // not required, but available
+        'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade', //2fa
     ];
 
     /**

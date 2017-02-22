@@ -1,5 +1,6 @@
 <?php
 //Auth::routes();
+Route::any('/home', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home']);
 Route::group( [
     'middleware'=> config('mnara.route.middleware'),
     'as'		=> config('mnara.route.as')
