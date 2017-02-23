@@ -35,7 +35,14 @@ class AuthenticatorController extends Controller
     {
         $isValid = $this->validateInput();
         // Render index and show the result
-        return $this->index($isValid);
+        return $this->home($isValid);
+    }
+    public function regenerateSecretKey()
+    {
+        $this->secretKey = Google2FA::generateSecretKey($this->keySize, $this->keyPrefix);
+        $this->storeKey($this->secretKey);
+        return $this->home();
+
     }
     /** This function generates QRCode that will be used in connecting with google authenticator
      * @param $key
@@ -109,7 +116,7 @@ class AuthenticatorController extends Controller
     {
         $valid = $this->validateInput($this->getSecretKey());
         $googleUrl = $this->getGoogleUrl($this->secretKey);
-        $inlineUrl = $this->getInlineUrl($this->secretKey);
+        //$inlineUrl = $this->getInlineUrl($this->secretKey);
        # return view('welcome', compact('key', 'googleUrl', 'inlineUrl', 'valid'));
         return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }

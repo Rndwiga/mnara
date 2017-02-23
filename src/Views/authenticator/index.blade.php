@@ -9,13 +9,17 @@
 
     <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('secret', 'Secret: ', ['class' => 'col-sm-3 control-label']) !!}
-        <div class="col-sm-6">
-            <b>{{ $key }}</b>
+        <div class="col-sm-4">
+            {!! Form::text('code', $key, ['class' => 'form-control']) !!}
+        </div>
+        <div class="col-sm-2">
+            <a href="{{route('mnara.authenticator.generate')}}" class="btn btn-warning form-control"><i class="
+                                                                                                     fa fa-refresh"></i>" Generate</a>
         </div>
     </div>
     <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3 control-label']) !!}
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <img src="{{ $googleUrl }}" alt="">
         </div>
     </div>
@@ -33,15 +37,11 @@
         </div>
     </div>
 
-
-
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
             {!! Form::submit('Validate', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
-
-
     {!! Form::close() !!}
 
 @endsection
