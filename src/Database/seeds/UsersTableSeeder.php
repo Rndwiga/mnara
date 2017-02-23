@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
                     'name' => 'admin',
                     'email' => 'admin@change.me',
                     'password' => bcrypt('password'),
-                    'google2fa_secret' => Google2FA::generateSecretKey(config('mnaraAuth'), config('mnara-authenticator.options.keyPrefix'))
+                    'google2fa_secret' => Google2FA::generateSecretKey(config('mnara_authenticator.options.keySize'), config('mnara_authenticator.options.keyPrefix'))
                 ]
             );
     }

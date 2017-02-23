@@ -7,6 +7,7 @@ Route::group( [
 ], function () {
 
     Route::get('/mnara/authenticator', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
+    Route::post('/mnara/authenticator', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
     /*
     |-------------------------------------------------------------------------
     |	Permission Routes

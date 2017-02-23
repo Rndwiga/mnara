@@ -80,14 +80,14 @@ return [
         ],
         [
             'group' => 'Authentication',
-            'class' => 'fa fa-key fa-lg',
+            'class' => 'fa fa-plug fa-lg',
             'links' => [
                 [
-                  'title' => 'Set Authentication',
-                  'class' => 'fa fa-fw fa-plus',
-                  'route' => 'mnara.authenticator.index'
+                    'title' => 'Set Authentication',
+                    'class' => 'fa fa-ticket fa-plus',
+                    'route' => 'mnara.authenticator.index'
                 ],
             ]
-        ],
+        ]
     ],
 ];

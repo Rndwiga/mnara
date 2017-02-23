@@ -190,13 +190,12 @@ return [
             'edit'      => 'mnara::partials.edit',
             'role'      => 'mnara::permission.role'
         ],
-        'authentication' => [
-           // 'index'     => 'mnara::permission.index',
-            'index'     => 'mnara::home',
-            'create'    => 'mnara::partials.create',
-            'show'      => 'mnara::partials.edit',
-            'edit'      => 'mnara::partials.edit',
-            'role'      => 'mnara::permission.role'
+        'authenticator' => [
+            'index'     => 'mnara::authenticator.index',
+            'create'    => 'mnara::authenticator.create',
+            'show'      => 'mnara::authenticator.edit',
+            'edit'      => 'mnara::authenticator.edit',
+            'role'      => 'mnara::authenticator.role'
         ]
     ],
 

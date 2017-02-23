@@ -24,11 +24,11 @@ class AuthenticatorController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->fileName = config('mnara-authenticator.options.file');
-        $this->name  = config('mnara-authenticator.options.name');
-        $this->email  = config('mnara-authenticator.options.email');
-        $this->keySize = config('mnara-authenticator.options.keySize');
-        $this->keyPrefix = config('mnara-authenticator.options.keyPrefix');
+        $this->fileName = config('mnara_authenticator.options.file');
+        $this->name  = config('mnara_authenticator.options.name');
+        $this->email  = config('mnara_authenticator.options.email');
+        $this->keySize = config('mnara_authenticator.options.keySize');
+        $this->keyPrefix = config('mnara_authenticator.options.keyPrefix');
     }
 
     public function check2fa()
@@ -119,6 +119,7 @@ class AuthenticatorController extends Controller
         //return $secret;
         $valid = $this->validateInput($key = $this->getSecretKey()); //expand this function to not allow the user to login if false
         $googleUrl = $this->getGoogleUrl($key);
+        //return view(config('mnara.views.authentication.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
         return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }
 
