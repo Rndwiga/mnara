@@ -1,11 +1,12 @@
 <?php
 //Auth::routes();
-Route::any('/home', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home']);
+
 Route::group( [
     'middleware'=> config('mnara.route.middleware'),
     'as'		=> config('mnara.route.as')
 ], function () {
 
+    Route::get('/mnara/authenticator', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
     /*
     |-------------------------------------------------------------------------
     |	Permission Routes

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(config('mnara.views.layouts.master'))
 
 @section('content')
 <div class="container">

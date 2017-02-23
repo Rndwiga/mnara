@@ -189,6 +189,14 @@ return [
             'show'      => 'mnara::partials.edit',
             'edit'      => 'mnara::partials.edit',
             'role'      => 'mnara::permission.role'
+        ],
+        'authentication' => [
+           // 'index'     => 'mnara::permission.index',
+            'index'     => 'mnara::home',
+            'create'    => 'mnara::partials.create',
+            'show'      => 'mnara::partials.edit',
+            'edit'      => 'mnara::partials.edit',
+            'role'      => 'mnara::permission.role'
         ]
     ],
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PragmaRX\Google2FA\Vendor\Laravel\Facade as Google2FA;
 use Tyondo\Mnara\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Tyondo\Mnara\Helpers\MnaraHelper;
 
 class AuthenticatorController extends Controller
 {
@@ -23,11 +24,11 @@ class AuthenticatorController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->fileName = config('authenticator.options.file');
-        $this->name  = config('authenticator.options.name');
-        $this->email  = config('authenticator.options.email');
-        $this->keySize = config('authenticator.options.keySize');
-        $this->keyPrefix = config('authenticator.options.keyPrefix');
+        $this->fileName = config('mnara-authenticator.options.file');
+        $this->name  = config('mnara-authenticator.options.name');
+        $this->email  = config('mnara-authenticator.options.email');
+        $this->keySize = config('mnara-authenticator.options.keySize');
+        $this->keyPrefix = config('mnara-authenticator.options.keyPrefix');
     }
 
     public function check2fa()
@@ -109,14 +110,16 @@ class AuthenticatorController extends Controller
         $valid = $this->validateInput($this->getSecretKey());
         $googleUrl = $this->getGoogleUrl($this->secretKey);
         $inlineUrl = $this->getInlineUrl($this->secretKey);
-        return view('welcome', compact('key', 'googleUrl', 'inlineUrl', 'valid'));
+       # return view('welcome', compact('key', 'googleUrl', 'inlineUrl', 'valid'));
+        return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }
+
     public function home()
     {
         //return $secret;
         $valid = $this->validateInput($key = $this->getSecretKey()); //expand this function to not allow the user to login if false
         $googleUrl = $this->getGoogleUrl($key);
-        return view('mnara', compact('key', 'googleUrl', 'inlineUrl', 'valid'));
+        return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }
 
 }

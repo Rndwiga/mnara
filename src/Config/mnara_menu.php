@@ -78,5 +78,16 @@ return [
                 ],
             ]
         ],
+        [
+            'group' => 'Authentication',
+            'class' => 'fa fa-key fa-lg',
+            'links' => [
+                [
+                  'title' => 'Set Authentication',
+                  'class' => 'fa fa-fw fa-plus',
+                  'route' => 'mnara.authenticator.index'
+                ],
+            ]
+        ],
     ],
 ];

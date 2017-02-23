@@ -56,7 +56,8 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
         // Merge config files
         $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', $this->packageName);
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara-menu.php', $this->packageName.'-menu');
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara_menu.php', $this->packageName.'_menu');
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara_authenticator.php', $this->packageName.'_authenticator');
 		// Register Views
         $this->loadViewsFrom(__DIR__.'/views', $this->packageName);
 		
@@ -65,7 +66,10 @@ class MnaraServiceProvider extends ServiceProvider {
             __DIR__.'/Config/mnara.php' => config_path($this->packageName.'.php')
         ], 'config');
         $this->publishes([
-            __DIR__.'/Config/mnara-menu.php' => config_path($this->packageName.'-menu.php')
+            __DIR__.'/Config/mnara_menu.php' => config_path($this->packageName.'_menu.php')
+        ], 'config');
+        $this->publishes([
+            __DIR__.'/Config/mnara_authenticator.php' => config_path($this->packageName.'_authenticator.php')
         ], 'config');
         // publishing your assets
         $this->publishes([
@@ -80,8 +84,6 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__.'/Views' => base_path('resources/views/vendor/'.$this->packageName)
         ], 'views');
-
-
 
     //composer for determining which theme to use
         $this->app['view']->composer('*',function($view){
