@@ -7,7 +7,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
 //use Illuminate\Support\Facades\Schema;
 //use Illuminate\Support\Facades\Config;
-//use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 
 /**
  * A Laravel 5.3 user package
@@ -46,14 +46,22 @@ class MnaraServiceProvider extends ServiceProvider {
 
     /**
      * Bootstrap the application services.
-     *
+     * @param mixed
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         //Schema::defaultStringLength(191);
 		//loading routes
-        $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
+        $router->group(
+          [
+              'prefix' => config('mnara.route.prefix', 'manara'),
+              'namespace' => 'Tyondo\\Mnara\\Controllers',
+          ], function(){
+            $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
+        }
+        );
+
         // Merge config files
         $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', $this->packageName);
         $this->mergeConfigFrom(__DIR__.'/Config/mnara_menu.php', $this->packageName.'_menu');
