@@ -68,7 +68,39 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(__DIR__.'/Config/mnara_authenticator.php', $this->packageName.'_authenticator');
 		// Register Views
         $this->loadViewsFrom(__DIR__.'/views', $this->packageName);
-		
+
+    //composer for determining which theme to use
+        $this->app['view']->composer('*',function($view){
+            $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
+            $view->title = $this->app['config']->get('mnara.site_title');
+        });
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //registering package service providers and aliases
+        $this->registerServiceProviders();
+        $this->registerMiddleware();
+        $this->registerAliases();
+        $this->registerBladeDirectives();
+        $this->registerResources();
+
+        // Register it
+        $this->app->singleton('mnara', function($app) {
+            $auth = $app->make('Illuminate\Contracts\Auth\Guard');
+             return new Mnara($auth);
+        });
+    }
+    /**
+     * @return void
+     */
+    protected function registerResources()
+    {
         // Publish your config files
         $this->publishes([
             __DIR__.'/Config/mnara.php' => config_path($this->packageName.'.php')
@@ -88,38 +120,11 @@ class MnaraServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__.'/Database/migrations/' => base_path('/database/migrations')
         ], 'mnara');
-		// Publish views
+        // Publish views
         $this->publishes([
             __DIR__.'/Views' => base_path('resources/views/vendor/'.$this->packageName)
         ], 'views');
 
-    //composer for determining which theme to use
-        $this->app['view']->composer('*',function($view){
-            $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
-            $view->title = $this->app['config']->get('mnara.site_title');
-        });
-
-    }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //registering package service providers and aliases
-        $this->registerServiceProviders();
-        $this->registerMiddleware();
-        $this->registerAliases();
-        $this->registerBladeDirectives();
-
-        // Register it
-        $this->app->singleton('mnara', function($app) {
-            $auth = $app->make('Illuminate\Contracts\Auth\Guard');
-            //$g2fa = $app->make('Tyondo\Mnara\Helpers\Mnara2faHelper');
-             return new Mnara($auth);
-        });
     }
     /**
      * @return void
