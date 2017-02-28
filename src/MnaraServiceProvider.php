@@ -109,6 +109,7 @@ class MnaraServiceProvider extends ServiceProvider {
         // Register it
         $this->app->singleton('mnara', function($app) {
             $auth = $app->make('Illuminate\Contracts\Auth\Guard');
+            //$g2fa = $app->make('Tyondo\Mnara\Helpers\Mnara2faHelper');
              return new Mnara($auth);
         });
     }

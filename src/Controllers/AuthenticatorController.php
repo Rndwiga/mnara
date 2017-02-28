@@ -3,10 +3,10 @@
 namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
-use PragmaRX\Google2FA\Vendor\Laravel\Facade as Google2FA;
-use Tyondo\Mnara\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Tyondo\Mnara\Helpers\Mnara2faHelper;
 use Tyondo\Mnara\Helpers\MnaraHelper;
+
+
 
 class AuthenticatorController extends Controller
 {
@@ -14,11 +14,13 @@ class AuthenticatorController extends Controller
     /**
      * Create a new controller instance.
      *https://gist.github.com/rdev5/e7f68dcfab8452bb5c65070a60422638
+     * @param mixed
      *
      */
-    public function __construct()
+    public function __construct(Mnara2faHelper $g2fa)
     {
         $this->middleware('auth');
+        $this->g2fa = $g2fa;
     }
 
     /**
@@ -28,10 +30,8 @@ class AuthenticatorController extends Controller
      */
     public function home()
     {
-        //return $secret;
-        $valid = $this->validateInput($key = $this->getSecretKey()); //expand this function to not allow the user to login if false
-        $googleUrl = $this->getGoogleUrl($key);
-        //return view(config('mnara.views.authentication.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
+        $valid = $this->g2fa->validateInput($key = $this->g2fa->getSecretKey()); //expand this function to not allow the user to login if false
+        $googleUrl = $this->g2fa->getGoogleUrl($key);
         return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }
 
