@@ -6,17 +6,17 @@ Route::group( [
     'as'		=> config('mnara.route.as')
 ], function () {
 
-    Route::get('/mnara/authenticator', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
-    Route::get('/mnara/authenticator/generate', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@regenerateSecretKey'])->name( config('mnara.route.prefix') . 'authenticator.generate');
-    Route::post('/mnara/authenticator', ['uses' => 'Tyondo\Mnara\Controllers\AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
+    Route::get('/mnara/authenticator', ['uses' => 'AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
+    Route::get('/mnara/authenticator/generate', ['uses' => 'AuthenticatorController@regenerateSecretKey'])->name( config('mnara.route.prefix') . 'authenticator.generate');
+    Route::post('/mnara/authenticator', ['uses' => 'AuthenticatorController@home'])->name( config('mnara.route.prefix') . 'authenticator.index');
     /*
     |-------------------------------------------------------------------------
     |	Permission Routes
     |-------------------------------------------------------------------------
     */
-    Route::get('mnara/permission/role/{role}/edit', 'Tyondo\Mnara\Controllers\PermissionController@editRole')->name( config('mnara.route.prefix') . 'permission.role.edit');
-    Route::post('mnara/permission/role/{role}', 'Tyondo\Mnara\Controllers\PermissionController@updateRole')->name( config('mnara.route.prefix') . 'permission.role.update');
-    Route::resource('mnara/permission', 'Tyondo\Mnara\Controllers\PermissionController',
+    Route::get('mnara/permission/role/{role}/edit', 'PermissionController@editRole')->name( config('mnara.route.prefix') . 'permission.role.edit');
+    Route::post('mnara/permission/role/{role}', 'PermissionController@updateRole')->name( config('mnara.route.prefix') . 'permission.role.update');
+    Route::resource('mnara/permission', 'PermissionController',
         ['names' => [
             'create'	=> config('mnara.route.prefix') . 'permission.create',
             'destroy'	=> config('mnara.route.prefix') . 'permission.destroy',
@@ -35,13 +35,13 @@ Route::group( [
     |	Role Routes
     |-------------------------------------------------------------------------
     */
-    Route::get('mnara/role/matrix', 'Tyondo\Mnara\Controllers\RoleController@showRoleMatrix')->name( config('mnara.route.prefix') . 'role.matrix');
-    Route::post('mnara/role/matrix', 'Tyondo\Mnara\Controllers\RoleController@updateRoleMatrix')->name( config('mnara.route.prefix') . 'role.matrix');
-    Route::get('mnara/role/permission/{role}/edit', 'Tyondo\Mnara\Controllers\RoleController@editRolePermissions')->name( config('mnara.route.prefix') . 'role.permission.edit');
-    Route::post('mnara/role/permission/{role}', 'Tyondo\Mnara\Controllers\RoleController@updateRolePermissions')->name( config('mnara.route.prefix') . 'role.permission.update');
-    Route::get('mnara/role/user/{role}/edit', 'Tyondo\Mnara\Controllers\RoleController@editRoleUsers')->name( config('mnara.route.prefix') . 'role.user.edit');
-    Route::post('mnara/role/user/{role}', 'Tyondo\Mnara\Controllers\RoleController@updateRoleUsers')->name( config('mnara.route.prefix') . 'role.user.update');
-    Route::resource('mnara/role', 'Tyondo\Mnara\Controllers\RoleController',
+    Route::get('mnara/role/matrix', 'RoleController@showRoleMatrix')->name( config('mnara.route.prefix') . 'role.matrix');
+    Route::post('mnara/role/matrix', 'RoleController@updateRoleMatrix')->name( config('mnara.route.prefix') . 'role.matrix');
+    Route::get('mnara/role/permission/{role}/edit', 'RoleController@editRolePermissions')->name( config('mnara.route.prefix') . 'role.permission.edit');
+    Route::post('mnara/role/permission/{role}', 'RoleController@updateRolePermissions')->name( config('mnara.route.prefix') . 'role.permission.update');
+    Route::get('mnara/role/user/{role}/edit', 'RoleController@editRoleUsers')->name( config('mnara.route.prefix') . 'role.user.edit');
+    Route::post('mnara/role/user/{role}', 'RoleController@updateRoleUsers')->name( config('mnara.route.prefix') . 'role.user.update');
+    Route::resource('mnara/role', 'RoleController',
         ['names' => [
             'create'	=> config('mnara.route.prefix') . 'role.create',
             'destroy'	=> config('mnara.route.prefix') . 'role.destroy',
@@ -60,11 +60,11 @@ Route::group( [
     |	User Routes
     |-------------------------------------------------------------------------
     */
-    Route::get('mnara/user/matrix', 'Tyondo\Mnara\Controllers\UserController@showUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
-    Route::post('mnara/user/matrix', 'Tyondo\Mnara\Controllers\UserController@updateUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
-    Route::get('mnara/user/role/{user}/edit', 'Tyondo\Mnara\Controllers\UserController@editUserRoles')->name( config('mnara.route.prefix') . 'user.role.edit');
-    Route::post('mnara/user/role/{user}', 'Tyondo\Mnara\Controllers\UserController@updateUserRoles')->name( config('mnara.route.prefix') . 'user.role.update');
-    Route::resource('mnara/user', 'Tyondo\Mnara\Controllers\UserController',
+    Route::get('mnara/user/matrix', 'UserController@showUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
+    Route::post('mnara/user/matrix', 'UserController@updateUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
+    Route::get('mnara/user/role/{user}/edit', 'UserController@editUserRoles')->name( config('mnara.route.prefix') . 'user.role.edit');
+    Route::post('mnara/user/role/{user}', 'UserController@updateUserRoles')->name( config('mnara.route.prefix') . 'user.role.update');
+    Route::resource('mnara/user', 'UserController',
         ['names' => [
             'create'	=> config('mnara.route.prefix') . 'user.create',
             'destroy'	=> config('mnara.route.prefix') . 'user.destroy',
@@ -83,6 +83,6 @@ Route::group( [
     |	Mnara Interface Routes
     |-------------------------------------------------------------------------
     */
-    Route::get('mnara', 'Tyondo\Mnara\Controllers\MnaraController@index')->name( config('mnara.route.prefix') . 'index');
+    Route::get('mnara', 'MnaraController@index')->name( config('mnara.route.prefix') . 'index');
 
 });
