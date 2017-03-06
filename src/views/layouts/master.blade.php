@@ -72,7 +72,8 @@
 						<li><a href="{{ url( config('mnara.auth_routes.register') ) }}">Register</a></li>
 					@else
 
-						<!-- navigation links -->
+					{{--
+							<!-- navigation links -->
 						@foreach( config('mnara-menu.navigation') as $nav_menu )
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="{{ $nav_menu['group'] }}">
@@ -92,6 +93,9 @@
 				          </ul>
 				        </li>
 						@endforeach
+						{!! menuGenerator::generateMenu() !!}
+					--}}
+
 
 				        <!-- user dropdown links -->
 				        <li class="dropdown">

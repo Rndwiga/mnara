@@ -8,7 +8,6 @@
 
 namespace Tyondo\Mnara\Helpers;
 use Caffeinated\Themes\Facades\Theme;
-use Illuminate\Support\Facades\Auth;
 use PragmaRX\Google2FA\Vendor\Laravel\Facade as Google2FA;
 
 class MnaraHelper

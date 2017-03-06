@@ -33,6 +33,7 @@ class MnaraServiceProvider extends ServiceProvider {
     protected $providers = [
         'Collective\Html\HtmlServiceProvider', // For Mnara Forms to function
         'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider', //2fa
+        'Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider', //menu generation
     ];
     /**
      * @var array
