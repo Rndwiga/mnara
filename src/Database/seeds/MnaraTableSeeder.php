@@ -1,8 +1,8 @@
 <?php
 
-namespace Tyondo\Mnara\Database\seeds;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use PragmaRX\Google2FA\Vendor\Laravel\Facade as Google2FA;
+use Illuminate\Support\Facades\DB;
 
 class MnaraTableSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class MnaraTableSeeder extends Seeder
         // roles
         $roles = [
             [ 
-                'name'          => 'Root User',
+                'name'          => 'Super User',
                 'slug'          => 'root',
                 'description'   => 'Have all access to all areas',
                 'special'       => 'all-access',
@@ -45,23 +45,11 @@ class MnaraTableSeeder extends Seeder
         ];
         
         // insert roles
-        DB::table('roles')->insert($roles);
-
-/*
- *         // is there a user
-        $any = DB::table('users')->get();
-        if ( empty($any) ) {
-            DB::table('users')
-                ->insert( [
-                    'name' => 'admin',
-                    'email' => 'admin@change.me',
-                    'password' => bcrypt('password')
-                ]
-            );
+        if(DB::table('roles')->count() <= 0){
+            foreach ($roles as $role) {
+                DB::table('roles')->insert($role);
+            }
         }
- * */
-        //associate first user with admin role
-        DB::table('role_user')->insert( ['role_id' => 1, 'user_id'=> 1] );
 
          // permissions
         $permissions = [
@@ -203,9 +191,42 @@ class MnaraTableSeeder extends Seeder
                 'description'   => 'Able to search permissions'
             ],
         ];
+        if(DB::table('permissions')->count() <= 0){
+            //insert permissions
+            DB::table('permissions')->insert($permissions);
+        }
 
-        //insert permissions    
-        DB::table('permissions')->insert($permissions);
+        // is there a user
+        $any = DB::table('users')->count();
+        if ( $any < 1) {
+            $id = DB::table('users')
+                ->insertGetId( [
+                        'name' => 'admin',
+                        'email' => 'admin@admin.com',
+                        'google2fa_secret' => Google2FA::generateSecretKey(config('mnara_authenticator.options.keySize'), config('mnara_authenticator.options.keyPrefix')),
+                        'password' => bcrypt('password')
+                    ]
+                );
+            //associate first user with super role
+            DB::table('role_user')->insert(
+                ['user_id' => $id, 'role_id' => 1]
+            );
+            $permissions = DB::table('permissions')->get();
+            foreach ($permissions as $permission) {
+                DB::table('permission_role')->insert([
+                    'permission_id' => $permission->id,
+                    'role_id' => 1
+                ]);
+            }
+
+        }else{
+            if(DB::table('role_user')->count() <= 0){
+                DB::table('role_user')->insert(
+                    ['role_id' => 1, 'user_id'=> 1]
+                );
+            }
+
+        }
     }
         
 }

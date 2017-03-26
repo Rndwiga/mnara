@@ -3,6 +3,9 @@
 namespace Tyondo\Mnara;
 
 use Tyondo\Mnara\Models\Role;
+use Tyondo\Mnara\Models\User;
+use Tyondo\Mnara\Models\Permission;
+use Caffeinated\Themes\Facades\Theme;
 use Illuminate\Contracts\Auth\Guard;
 
 class Mnara
@@ -11,6 +14,9 @@ class Mnara
      * @var Illuminate\Contracts\Auth\Guard
      */
     protected $auth;
+    protected $permissionsLoaded = false;
+    protected $permissions = [];
+    protected $users = [];
 
     /**
      * Create a new UserHasPermission instance.
@@ -21,18 +27,52 @@ class Mnara
     {
         $this->auth = $auth;
     }
+    public function routes()
+    {
+        require __DIR__.'/Routes/webRoutes.php';
+    }
+    public function view($name, $data = null)
+    {
+        if(config('mnara.use_theme') === true){
+            $name_fragment = explode("::", $name);
+            // package-namespace --> $name_fragment[0]
+            // view location --> $name_fragment[1] ;
+            if(isset($data)){
+                return Theme::view($name_fragment[1], $data);
+            }
+            return Theme::view($name_fragment[1]);
+        }
+        //run this if use of theme has not been switched on
+        if(isset($data)){
+            return view($name, $data);
+        }
+        return view($name);
+    }
 
     /**
      * Checks if user has the given permissions.
      *
-     * @param array|string $permissions
+     * @param mixed
      *
      * @return bool
      */
+
     public function can($permissions)
     {
         if ($this->auth->check()) {
-            return $this->auth->user()->can($permissions);
+            $this->loadPermissions();
+            // Check if permission exist
+            $exist = $this->permissions->where('slug', $permissions)->first();
+
+            if ($exist) {
+                $user = $this->getUser();
+                if ($user == null || !$this->auth->user()->can($permissions)) {
+                    return false;
+                }
+
+                return true;
+            }
+            return true;
         } else {
             $guest = Role::whereSlug('guest')->first();
 
@@ -40,8 +80,32 @@ class Mnara
                 return $guest->can($permissions);
             }
         }
-
         return false;
+    }
+    protected function loadPermissions()
+    {
+        if (!$this->permissionsLoaded) {
+            $this->permissionsLoaded = true;
+
+            $this->permissions = Permission::all();
+        }
+    }
+
+    protected function getUser($id = null)
+    {
+        if (is_null($id)) {
+            $id = auth()->check() ? auth()->user()->id : null;
+        }
+
+        if (is_null($id)) {
+            return;
+        }
+
+        if (!isset($this->users[$id])) {
+            $this->users[$id] = User::find($id);
+        }
+
+        return $this->users[$id];
     }
 
     /**

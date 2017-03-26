@@ -1,5 +1,5 @@
 <?php
-namespace Tyondo\Mnara\Database\seeds;
+#namespace Tyondo\Mnara\Database\seeds;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use PragmaRX\Google2FA\Vendor\Laravel\Facade as Google2FA;

@@ -4,129 +4,111 @@
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Blade;
-//use Illuminate\Support\Facades\Schema;
-//use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 use Illuminate\Routing\Router;
 
-/**
- * A Laravel 5.3 user package
- *
- * @author: Rndwiga
- */
 class MnaraServiceProvider extends ServiceProvider {
-    /**
-     * Indicates of loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-    /**
-     * This will be used to register config & view in 
-     * your package namespace.
-     *
-     */
-    protected $packageName = 'mnara';
-    /**
-     * @var array
-     */
+
     protected $providers = [
-        'Collective\Html\HtmlServiceProvider', // For Mnara Forms to function
-        'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider', //2fa
-        'Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider', //menu generation
+        'Collective\Html\HtmlServiceProvider',
+        'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider',
+        'Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider',
     ];
-    /**
-     * @var array
-     */
     protected $aliases = [
-        'Form' => 'Collective\Html\FormFacade', // required for Mnara Forms
-        'Html' => 'Collective\Html\HtmlFacade', // required for Mnara Forms
-        'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade', // not required, but available
-        'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade', //2fa
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
+        'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade',
+        'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade',
+    ];
+    protected $middleware = [
+        'role_mnara' => 'Tyondo\Mnara\Middleware\UserHasRole',
+        'permission_mnara' => 'Tyondo\Mnara\Middleware\UserHasPermission',
     ];
 
-    /**
-     * Bootstrap the application services.
-     * @param mixed
-     * @return void
-     */
-    public function boot(Router $router)
+    public function boot(Router $router, Dispatcher $event)
     {
-        //Schema::defaultStringLength(191);
-		//loading routes
-        $router->group(
+        $this->registerMiddleware($router);
+        $this->loadViewsFrom(__DIR__.'/views', 'mnara');
+        $this->registerViewComposers();
+
+     /*   $router->group(
           [
               'prefix' => config('mnara.route.prefix', 'manara'),
               'namespace' => 'Tyondo\\Mnara\\Controllers',
+             // 'middleware'=> config('mnara.route.middleware'),
           ], function(){
-            $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
-        }
+                 $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
+             }
         );
-
-        // Merge config files
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', $this->packageName);
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara_menu.php', $this->packageName.'_menu');
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara_authenticator.php', $this->packageName.'_authenticator');
-		// Register Views
-        $this->loadViewsFrom(__DIR__.'/views', $this->packageName);
-
-    //composer for determining which theme to use
-        $this->app['view']->composer('*',function($view){
-            $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
-            $view->title = $this->app['config']->get('mnara.site_title');
-        });
+    */
     }
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //registering package service providers and aliases
         $this->registerServiceProviders();
-        $this->registerMiddleware();
         $this->registerAliases();
         $this->registerBladeDirectives();
-        $this->registerResources();
+        $this->registerPublishableResources();
+        $this->registerConfigs();
 
-        // Register it
         $this->app->singleton('mnara', function($app) {
             $auth = $app->make('Illuminate\Contracts\Auth\Guard');
              return new Mnara($auth);
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->registerPublishableResources();
+            $this->registerConsoleCommands();
+        }
     }
-    /**
-     * @return void
-     */
-    protected function registerResources()
+    private function registerConsoleCommands()
     {
-        // Publish your config files
-        $this->publishes([
-            __DIR__.'/Config/mnara.php' => config_path($this->packageName.'.php')
-        ], 'config');
-        $this->publishes([
-            __DIR__.'/Config/mnara_menu.php' => config_path($this->packageName.'_menu.php')
-        ], 'config');
-        $this->publishes([
-            __DIR__.'/Config/mnara_authenticator.php' => config_path($this->packageName.'_authenticator.php')
-        ], 'config');
-        // publishing your assets
-        $this->publishes([
-            __DIR__.'/Assets/' => base_path('/public/vendor/'.$this->packageName),
-        ], 'mnara');
-
-        // Register your migration's publisher
-        $this->publishes([
-            __DIR__.'/Database/migrations/' => base_path('/database/migrations')
-        ], 'mnara');
-        // Publish views
-        $this->publishes([
-            __DIR__.'/Views' => base_path('resources/views/vendor/'.$this->packageName)
-        ], 'views');
-
+        $this->commands(Commands\InstallCommand::class);
     }
+    protected function registerViewComposers()
+    {
+        $this->app['view']->composer('mnara::*',function($view){
+            $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
+            $view->title = $this->app['config']->get('mnara.site_title');
+        });
+    }
+    protected function registerConfigs()
+    {
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', 'mnara');
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara_menu.php', 'mnara_menu');
+        $this->mergeConfigFrom(__DIR__.'/Config/mnara_authenticator.php', 'mnara_authenticator');
+    }
+    private function registerPublishableResources()
+    {
+        $basePath = __DIR__;
+        $publishable = [
+            'mnara_assets' => [
+                "$basePath/Assets/" => public_path('vendor/mnara'),
+            ],
+            'migrations' => [
+                "$basePath/Database/migrations/" => database_path('migrations'),
+            ],
+            'seeds' => [
+                "$basePath/Database/seeds/" => database_path('seeds'),
+            ],
+            'views' => [
+                "$basePath/Views/" => base_path('resources/views/vendor/mnara'),
+            ],
+            'config' => [
+                "$basePath/Config/mnara.php" => config_path('mnara.php'),
+                "$basePath/Config/mnara_menu.php" => config_path('mnara_menu.php'),
+                "$basePath/Config/mnara_authenticator.php" => config_path('mnara_authenticator.php'),
+            ],
+        ];
+
+        foreach ($publishable as $group => $paths) {
+            $this->publishes($paths, $group);
+        }
+    }
+
     /**
      * @return void
      */
@@ -148,13 +130,21 @@ class MnaraServiceProvider extends ServiceProvider {
             $loader->alias($key, $alias);
         }
     }
-    /**
-     * @return void
-     */
-    private function registerMiddleware()
+
+    private function registerMiddleware($router)
     {
-        $this->app['router']->middleware('role_mnara', 'Tyondo\Mnara\Middleware\UserHasRole');
-        $this->app['router']->middleware('permission_mnara', 'Tyondo\Mnara\Middleware\UserHasPermission');
+        if (app()->version() >= 5.4) {
+            foreach ($this->middleware as $key => $alias)
+            {
+                $router->aliasMiddleware($key, $alias);
+            }
+        } else {
+            foreach ($this->middleware as $key => $alias)
+            {
+                $router->middleware($key, $alias);
+            }
+        }
+
     }
     protected function registerBladeDirectives()
     {

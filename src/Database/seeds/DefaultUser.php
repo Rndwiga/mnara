@@ -15,7 +15,7 @@ class DefaultUser extends Seeder
         DB::table('users')
             ->insert( [
                     'name' => 'admin',
-                    'email' => 'admin@change.me',
+                    'email' => 'admin@admin.com',
                     'password' => bcrypt('password')
                 ]
             );

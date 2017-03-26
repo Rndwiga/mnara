@@ -4,7 +4,7 @@ namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
 use Tyondo\Mnara\Helpers\Mnara2faHelper;
-use Tyondo\Mnara\Helpers\MnaraHelper;
+use Tyondo\Mnara\Facades\MnaraFacade as Mnara;
 
 
 
@@ -32,7 +32,7 @@ class AuthenticatorController extends Controller
     {
         $valid = $this->g2fa->validateInput($key = $this->g2fa->getSecretKey()); //expand this function to not allow the user to login if false
         $googleUrl = $this->g2fa->getGoogleUrl($key);
-        return MnaraHelper::isThemeSupportAvailable(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
+        return Mnara::view(config('mnara.views.authenticator.index'), compact('key', 'googleUrl', 'inlineUrl', 'valid'));
     }
 
 }

@@ -4,12 +4,11 @@ namespace Tyondo\Mnara\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use Tyondo\Mnara\Helpers\MnaraHelper;
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;
+use Tyondo\Mnara\Facades\MnaraFacade as Mnara;
 
 
 class PermissionController extends Controller
@@ -31,10 +30,10 @@ class PermissionController extends Controller
 	{
 		if ( Auth::user()->can( config('mnara.acl.permission.index', false) ) ) {
 			$permissions = $this->getData();
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.permissions.index'), compact('permissions') );
+			return Mnara::view( config('mnara.views.permissions.index'), compact('permissions') );
 	 	}
 
-	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view permission list' ] );
+	 	return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view permission list' ] );
 	}
 
 	/**
@@ -67,10 +66,10 @@ class PermissionController extends Controller
 	{
 		if ( Auth::user()->can( config('mnara.acl.permission.create', false) ) ) {
 		    $route = $this->route;
-            return MnaraHelper::isThemeSupportAvailable(config('mnara.views.permissions.create'), compact('route'));
+            return Mnara::view(config('mnara.views.permissions.create'), compact('route'));
 		}
 
-		return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new permissions' ]);
+		return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new permissions' ]);
 	}
 
 	/**
@@ -106,10 +105,10 @@ class PermissionController extends Controller
 			$show = "1";
 			$route = $this->route;
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.permissions.show'), compact('resource','show','route') );
+			return Mnara::view( config('mnara.views.permissions.show'), compact('resource','show','route') );
 		}
 
-		return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view permissions' ]);
+		return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view permissions' ]);
 	}
 
 	/**
@@ -125,10 +124,10 @@ class PermissionController extends Controller
 			$show = "0";
 			$route = $this->route;
 
-			return MnaraHelper::isThemeSupportAvailable(config('mnara.views.permissions.edit'), compact('resource','show','route') );
+			return Mnara::view(config('mnara.views.permissions.edit'), compact('resource','show','route') );
 		}
 
-		return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit permissions' ]);
+		return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit permissions' ]);
 	}
 
 	/**
@@ -191,10 +190,10 @@ class PermissionController extends Controller
 			    $query->where('permission_id', $id);
 			})->get();
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.permissions.role'), compact('permission', 'roles', 'available_roles') );
+			return Mnara::view( config('mnara.views.permissions.role'), compact('permission', 'roles', 'available_roles') );
 	 	}
 
-	 	return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync permission roles' ]);
+	 	return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync permission roles' ]);
 	}
 	/**
 	 * Update the specified resource in storage.

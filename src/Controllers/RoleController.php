@@ -5,12 +5,10 @@ namespace Tyondo\Mnara\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
-use Tyondo\Mnara\Helpers\MnaraHelper;
+use Tyondo\Mnara\Facades\MnaraFacade as Mnara;
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
-
 use Tyondo\Mnara\Requests\StoreRequest;
 use Tyondo\Mnara\Requests\UpdateRequest;
 
@@ -35,10 +33,10 @@ class RoleController extends Controller
 		if ( Auth::user()->can( config('mnara.acl.role.index', false) ) ) {
 			$roles = $this->getData();
 
-			return MnaraHelper::isThemeSupportAvailable(config('mnara.views.roles.index'), compact('roles') );
+			return Mnara::view(config('mnara.views.roles.index'), compact('roles') );
 	 	}
 
-	 	return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view role list' ]);
+	 	return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view role list' ]);
 	}
 
 	/**
@@ -72,10 +70,10 @@ class RoleController extends Controller
 		if ( Auth::user()->can( config('mnara.acl.role.create', false) ) ) {
 		    $route = $this->route;
 		   // return view( config('mnara.views.roles.create'), compact('route') );
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.create'), compact('route') );
+			return Mnara::view( config('mnara.views.roles.create'), compact('route') );
 		}
 
-		return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new roles' ]);
+		return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'create new roles' ]);
 	}
 
 	/**
@@ -110,10 +108,10 @@ class RoleController extends Controller
 			$resource = Role::findOrFail($id);
 			$show = "1";
 			$route = $this->route;
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.show'), compact('resource','show','route') );
+			return Mnara::view( config('mnara.views.roles.show'), compact('resource','show','route') );
 		}
 
-		return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view roles' ]);
+		return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view roles' ]);
 	}
 
 	/**
@@ -129,10 +127,10 @@ class RoleController extends Controller
 			$show = "0";
 			$route = $this->route;
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.edit'), compact('resource','show','route') );
+			return Mnara::view( config('mnara.views.roles.edit'), compact('resource','show','route') );
 		}
 
-		return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit roles' ]);
+		return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'edit roles' ]);
 	}
 
 	/**
@@ -195,10 +193,10 @@ class RoleController extends Controller
 			    $query->where('role_id', $id);
 			})->get();
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.permission'), compact('role', 'permissions', 'available_permissions') );
+			return Mnara::view( config('mnara.views.roles.permission'), compact('role', 'permissions', 'available_permissions') );
 	 	}
 
-	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync role permissions' ]);
+	 	return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync role permissions' ]);
 	}
 
 	/**
@@ -244,10 +242,10 @@ class RoleController extends Controller
 			    $query->where('role_id', $id);
 			})->get();
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.user'), compact('role', 'users', 'available_users') );
+			return Mnara::view( config('mnara.views.roles.user'), compact('role', 'users', 'available_users') );
 		}
 
-	 	return MnaraHelper::isThemeSupportAvailable( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync role users' ]);
+	 	return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'sync role users' ]);
 	}
 
 	/**
@@ -292,10 +290,10 @@ class RoleController extends Controller
 				$pivot[] = $p->r_id.":".$p->p_id;
 			}
 
-			return MnaraHelper::isThemeSupportAvailable( config('mnara.views.roles.rolematrix'), compact('roles','perms','pivot') );
+			return Mnara::view( config('mnara.views.roles.rolematrix'), compact('roles','perms','pivot') );
 		}
 
-	 	return MnaraHelper::isThemeSupportAvailable(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view the role matrix' ]);
+	 	return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view the role matrix' ]);
 	}
 
 	/**
