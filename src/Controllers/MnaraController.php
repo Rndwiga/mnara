@@ -19,6 +19,7 @@ class MnaraController extends Controller
           $title = config('mnara.site_title');  //title
          return Mnara::view(config('mnara.views.layouts.dashboard'), compact('dashboard', 'title'));
         }
+
         return Mnara::view(config('mnara.views.layouts.unauthorized'), [ 'message' => 'view the dashboard' ]);
     }
 }

@@ -30,19 +30,8 @@ class MnaraServiceProvider extends ServiceProvider {
     public function boot(Router $router, Dispatcher $event)
     {
         $this->registerMiddleware($router);
-        $this->loadViewsFrom(__DIR__.'/views', 'mnara');
+        $this->loadViewsFrom(__DIR__.'/Views', 'mnara');
         $this->registerViewComposers();
-
-     /*   $router->group(
-          [
-              'prefix' => config('mnara.route.prefix', 'manara'),
-              'namespace' => 'Tyondo\\Mnara\\Controllers',
-             // 'middleware'=> config('mnara.route.middleware'),
-          ], function(){
-                 $this->loadRoutesFrom(__DIR__.'/Routes/webRoutes.php');
-             }
-        );
-    */
     }
 
     public function register()
