@@ -3,7 +3,7 @@
 namespace Tyondo\Mnara\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Config;
+
 
 
 class Role extends Model
@@ -27,7 +27,7 @@ class Role extends Model
      *
      * @var string
      */
-    protected $tag = 'shinobi.roles';
+    protected $tag = 'mnara.roles';
 
     /**
      * Roles can belong to many users.
@@ -57,7 +57,7 @@ class Role extends Model
     public function getPermissions()
     {
         $primaryKey = $this->primaryKey;
-        $cacheKey   = 'caffeinated.shinobi.permissions.'.$primaryKey;
+        $cacheKey   = 'mnara.permissions.'.$primaryKey;
 
         if (method_exists(app()->make('cache')->getStore(), 'tags')) {
             return app()->make('cache')->tags($this->tag)->remember($cacheKey, 60, function () {

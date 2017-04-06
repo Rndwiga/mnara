@@ -34,8 +34,6 @@ class UserController extends Controller
 		$model = config('mnara.user.model', $this->model);
         return new $model;
 	}
-
-
 	/**
 	 * Display a listing of the resource.
 	 * @param  \Illuminate\Http\Request
@@ -134,9 +132,10 @@ class UserController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
+     * @param  object UserUpdateRequest $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update($id, UserUpdateRequest $request)
+	public function update(UserUpdateRequest $request, $id)
 	{
 		$level = "danger";
 		$message = " You are not permitted to update users.";
@@ -284,7 +283,8 @@ class UserController extends Controller
      */
     public function showUserProfile($id)
     {
-        if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.show', false), config('mnara.acl.user.profile', false), config('mnara.acl.user.edit', false) ] ) ) {
+        //return Auth::user()->can(config('mnara.acl.user.profile', false));
+        if ( Auth::user()->can([config('mnara.acl.user.profile', false) ] ) ) {
             $resource = $this->model->findOrFail($id);
             $show = "1";
             return Mnara::view( config('mnara.views.users.profile'), compact('resource','show') );

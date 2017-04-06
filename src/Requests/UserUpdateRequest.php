@@ -5,13 +5,13 @@ namespace Tyondo\Mnara\Requests;
 class UserUpdateRequest extends Request
 {
 
-    public function all() {
+    public function all()
+    {
         $atts = parent::all();
 
         if ($atts['password'] === $atts['password_confirmation']) {
-            $crypted = bcrypt( $atts['password'] );
-            $atts['password'] = $crypted;
-            $atts['password_confirmation'] = $crypted;
+            $atts['password'] = bcrypt( $atts['password'] );
+            $atts['password_confirmation'] = $atts['password'];
         }
         
         return $atts;
@@ -35,20 +35,14 @@ class UserUpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ];
-       /*
-        * $rules = array_merge([
+         $rules = array_merge([
             'name' => 'required|max:255|unique:users,name,'.$this->user,
             'email' => 'required|email|unique:users,email,'.$this->user,
             'password' => 'confirmed|min:6',
-        ], config('watchtower.user.rules.update') );
+        ], config('mnara.user.rules.update') );
 
        return $rules;
-        * */
+
 
     }
 

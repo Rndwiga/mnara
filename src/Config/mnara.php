@@ -37,7 +37,7 @@ return [
     |
     */
     'user' => [
-        'model' => Tyondo\Mnara\Models\User::class,
+        'model' => \Tyondo\Mnara\Models\User::class,
         'rules' => [
             'update' => [],
             'store'  => [],
@@ -100,7 +100,7 @@ return [
             'usermatrix'    => 'sync.user.roles',
             'viewmatrix'    => 'show.user.index',
             'search'        => 'search.user',
-            'profile'        => 'search.user'
+            'profile'       => 'show.user.profile'
         ],
 
         'role' => [

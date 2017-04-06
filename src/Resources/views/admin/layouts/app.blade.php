@@ -36,7 +36,7 @@
 		<div class="col-md-3 left_col">
 			<div class="left_col scroll-view">
 				<div class="navbar nav_title" style="border: 0;">
-					<a href="#" class="site_title"><i class="fa fa-bank"></i> <span>{{ config('app.name') }}</span></a>
+					<a href="#" class="site_title"><i class="fa fa-random"></i> <span>{{ config('app.name') }}</span></a>
 				</div>
 				<div class="clearfix"></div>
 
@@ -65,7 +65,7 @@
 							<li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
 								<ul class="nav child_menu" style="display: none">
 									<li><a href="{{ route( config('mnara.route.as') . 'user.profile', Auth::user()->id) }}"><i class="fa fa-ellipsis-h fa-xs"></i> Profile</a></li>
-									@if(!Auth::check())
+									@if(Auth::user()->isRole('root'))
 										<li><a href="#"><i class="fa fa-ellipsis-h fa-xs"></i> Your Roles</a></li>
 
 										@forelse(Auth::user()->roles as $role)
@@ -88,13 +88,14 @@
 									{!! GenerateMenu::generateMenu(config('aggregator.navigation')) !!}
 								</ul>
 							@endif
-							<h3>Administration</h3>
-							<ul class="nav side-menu">
-								<li><a href="{{ route( config('mnara.route.as') . 'index') }}"><i class="fa fa-fw fa-tasks pull-left"></i> Dashboard</a></li>
-								<!-- navigation links -->
-								{!! GenerateMenu::generateMenu(config('mnara_menu.navigation')) !!}
-							</ul>
-
+							@if(Auth::user()->isRole('root'))
+								<h3>Administration</h3>
+								<ul class="nav side-menu">
+									<li><a href="{{ route( config('mnara.route.as') . 'index') }}"><i class="fa fa-fw fa-tasks pull-left"></i> Dashboard</a></li>
+									<!-- navigation links -->
+									{!! GenerateMenu::generateMenu(config('mnara_menu.navigation')) !!}
+								</ul>
+							@endif
 						</div>
 					@endif
 				</div>

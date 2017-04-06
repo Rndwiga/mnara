@@ -27,7 +27,7 @@ class AddToAuthenticationToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('google2fa_secret','g2fa_active');
         });
     }
 }
