@@ -190,6 +190,12 @@ class MnaraTableSeeder extends Seeder
                 'slug'          => 'search.permission',
                 'description'   => 'Able to search permissions'
             ],
+
+            [
+                'name'          => 'Show user profile',
+                'slug'          => 'show.user.profile',
+                'description'   => 'Show current user profile'
+            ],
         ];
         if(DB::table('permissions')->count() <= 0){
             //insert permissions

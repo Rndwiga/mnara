@@ -115,7 +115,7 @@
 					   onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
 						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-						<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+						<form id="logout-form" action="{{ route('mnara.logout') }}" method="POST" style="display: none;">
 							{{ csrf_field() }}
 						</form>
 					</a>
@@ -146,12 +146,12 @@
 								{{--<li><a href="javascript:;">Help</a></li>--}}
 								<li role="separator" class="divider"></li>
 								<li>
-									<a href="{{ url('/logout') }}"
+									<a href="{{ route('mnara.logout') }}"
 									   onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
 										<i class="fa fa-sign-out pull-right"></i>Logout
 									</a>
-									<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+									<form id="logout-form" action="{{ route('mnara.logout') }}" method="POST" style="display: none;">
 										{{ csrf_field() }}
 									</form>
 								</li>

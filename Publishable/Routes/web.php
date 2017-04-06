@@ -84,10 +84,17 @@ Route::group( [
 
     /*
     |-------------------------------------------------------------------------
+    |	Mnara Authentication
+    |-------------------------------------------------------------------------
+    */
+    Route::post('/mnara/logout', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'logout');
+    Route::post('/mnara/login', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'login');
+
+    /*
+    |-------------------------------------------------------------------------
     |	Mnara Interface Routes
     |-------------------------------------------------------------------------
     */
-
 
     Route::get('/', ['uses' => $namespacePrefix.'MnaraController@index', 'as' => 'index']);
 

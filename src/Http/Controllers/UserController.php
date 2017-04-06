@@ -290,6 +290,6 @@ class UserController extends Controller
             return Mnara::view( config('mnara.views.users.profile'), compact('resource','show') );
         }
 
-        return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view users' ]);
+        return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view your profile' ]);
     }
 }
