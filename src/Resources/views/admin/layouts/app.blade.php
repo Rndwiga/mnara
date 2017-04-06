@@ -59,20 +59,22 @@
 						<ul class="nav side-menu">
 							<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
 								<ul class="nav child_menu" style="display: none">
-									<li><a href="{{ route( config('mnara.route.as') . 'index') }}"><i class="fa fa-fw fa-tasks pull-left"></i> Dashboard</a></li>
+
 								</ul>
 							</li>
 							<li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
 								<ul class="nav child_menu" style="display: none">
-									<li><a href="#"><i class="fa fa-ellipsis-h fa-xs"></i> Your Roles</a></li>
+									<li><a href="{{ route( config('mnara.route.as') . 'user.profile', Auth::user()->id) }}"><i class="fa fa-ellipsis-h fa-xs"></i> Profile</a></li>
+									@if(!Auth::check())
+										<li><a href="#"><i class="fa fa-ellipsis-h fa-xs"></i> Your Roles</a></li>
 
-									@forelse(Auth::user()->roles as $role)
-										<li><a href="{{ route( config('mnara.route.as') . 'role.permission.edit', $role->id) }}"><i class="fa fa-users fa-xs pull-left"></i>  {{ $role->name }}</a></li>
-									@empty
-										<li><a href="#"><i class="fa fa-hand-stop-o fa-xs"></i> No roles</a></li>
-									@endforelse
-									<li role="separator" class="divider"></li>
-
+										@forelse(Auth::user()->roles as $role)
+											<li><a href="{{ route( config('mnara.route.as') . 'role.permission.edit', $role->id) }}"><i class="fa fa-users fa-xs pull-left"></i>  {{ $role->name }}</a></li>
+										@empty
+											<li><a href="#"><i class="fa fa-hand-stop-o fa-xs"></i> No roles</a></li>
+										@endforelse
+										<li role="separator" class="divider"></li>
+									@endif
 								</ul>
 							</li>
 						</ul>
@@ -81,13 +83,14 @@
 						<div class="menu_section">
 							@if(config('aggregator.navigation'))
 								{{--menu for the tyondo blog package -Aggregator ---}}
-							<h3>Blog</h3>
-							<ul class="nav side-menu">
+								<h3>Blog</h3>
+								<ul class="nav side-menu">
 									{!! GenerateMenu::generateMenu(config('aggregator.navigation')) !!}
-							</ul>
+								</ul>
 							@endif
 							<h3>Administration</h3>
 							<ul class="nav side-menu">
+								<li><a href="{{ route( config('mnara.route.as') . 'index') }}"><i class="fa fa-fw fa-tasks pull-left"></i> Dashboard</a></li>
 								<!-- navigation links -->
 								{!! GenerateMenu::generateMenu(config('mnara_menu.navigation')) !!}
 							</ul>
@@ -138,14 +141,8 @@
 								<li><a href="{{url('/')}}" target="_blank" ><i class="fa fa-globe pull-right"></i> Visit Site</a></li>
 								<li><a href="{{url('admin/users', Auth::user()->id)}}"><i class="fa fa-lock pull-right"></i>
 										Change Password</a></li>
+								<li><a href="{{ route( config('mnara.route.as') . 'user.profile', Auth::user()->id) }}"><i class="fa fa-user pull-right"></i> Profile</a></li>
 								{{--<li><a href="javascript:;">Help</a></li>--}}
-								<li><a href="#"><i class="fa fa-ellipsis-h fa-xs"></i> Your Roles</a></li>
-
-								@forelse(Auth::user()->roles as $role)
-									<li><a href="{{ route( config('mnara.route.as') . 'role.permission.edit', $role->id) }}"><i class="fa fa-users fa-xs pull-left"></i>  {{ $role->name }}</a></li>
-								@empty
-									<li><a href="#"><i class="fa fa-hand-stop-o fa-xs"></i> No roles</a></li>
-								@endforelse
 								<li role="separator" class="divider"></li>
 								<li>
 									<a href="{{ url('/logout') }}"
@@ -166,8 +163,8 @@
 		<!-- /top navigation -->
 
 		<!-- page content -->
-		@yield('content')
-		<!-- /page content -->
+	@yield('content')
+	<!-- /page content -->
 		<!-- footer content -->
 		<footer>
 			<div class="pull-right">

@@ -63,6 +63,7 @@ Route::group( [
     |-------------------------------------------------------------------------
     */
 
+    Route::get('mnara/user/profile/{id}', $namespacePrefix.'UserController@showUserProfile')->name( config('mnara.route.prefix') . 'user.profile');
     Route::get('mnara/user/matrix', $namespacePrefix.'UserController@showUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
     Route::post('mnara/user/matrix', $namespacePrefix.'UserController@updateUserMatrix')->name( config('mnara.route.prefix') . 'user.matrix');
     Route::get('mnara/user/role/{user}/edit', $namespacePrefix.'UserController@editUserRoles')->name( config('mnara.route.prefix') . 'user.role.edit');

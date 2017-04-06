@@ -1,4 +1,4 @@
-@extends(config('aggregator.views.layouts.admin'))
+@extends(config('mnara.views.layouts.master'))
 @section('css')
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">

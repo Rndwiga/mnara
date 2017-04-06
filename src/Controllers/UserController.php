@@ -276,4 +276,20 @@ class UserController extends Controller
 		return redirect()->route( config('mnara.route.as') . 'user.matrix')
 				->with( ['flash' => ['message' => $message, 'level' =>  $level] ] );
 	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showUserProfile($id)
+    {
+        if ( Auth::user()->canAtLeast( [ config('mnara.acl.user.show', false), config('mnara.acl.user.profile', false), config('mnara.acl.user.edit', false) ] ) ) {
+            $resource = $this->model->findOrFail($id);
+            $show = "1";
+            return Mnara::view( config('mnara.views.users.profile'), compact('resource','show') );
+        }
+
+        return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view users' ]);
+    }
 }

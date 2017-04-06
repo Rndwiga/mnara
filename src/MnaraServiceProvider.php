@@ -30,7 +30,7 @@ class MnaraServiceProvider extends ServiceProvider {
     public function boot(Router $router, Dispatcher $event)
     {
         $this->registerMiddleware($router);
-        $this->loadViewsFrom(__DIR__.'/Views', 'mnara');
+        $this->loadViewsFrom(__DIR__ . '/Resources/views', 'mnara');
         $this->registerViewComposers();
     }
 
@@ -84,7 +84,7 @@ class MnaraServiceProvider extends ServiceProvider {
                 "$basePath/Database/seeds/" => database_path('seeds'),
             ],
             'views' => [
-                "$basePath/Views/" => base_path('resources/views/vendor/mnara'),
+                "$basePath/Resources/views/" => base_path('resources/views/vendor/mnara'),
             ],
             'config' => [
                 "$basePath/Config/mnara.php" => config_path('mnara.php'),

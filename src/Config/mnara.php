@@ -99,7 +99,8 @@ return [
             'role'          => 'sync.user.roles',
             'usermatrix'    => 'sync.user.roles',
             'viewmatrix'    => 'show.user.index',
-            'search'        => 'search.user'
+            'search'        => 'search.user',
+            'profile'        => 'search.user'
         ],
 
         'role' => [
@@ -157,7 +158,8 @@ return [
             'show'      => 'mnara::admin.user.edit',
             'edit'      => 'mnara::admin.user.edit',
             'role'      => 'mnara::admin.user.role',
-            'usermatrix'=> 'mnara::admin.user.matrix'
+            'usermatrix'=> 'mnara::admin.user.matrix',
+            'profile'   => 'mnara::user.profile',
         ],
 
         'roles' => [
