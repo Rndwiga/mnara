@@ -19,6 +19,7 @@ return [
     |
     */
     'site_title' => 'Mnara',
+    'site_url' => 'https://github.com/Rndwiga/mnara',
 
 
     /*
@@ -141,47 +142,50 @@ return [
     */
     'views' => [
         'layouts' => [
-            'master'        => 'mnara::layouts.app',
-            'flash'         => 'mnara::partials.flash',
-            'modal'         => 'mnara::partials.modal',
-            'search'        => 'mnara::partials.search',
-            'dashboard'     => 'mnara::mnara.index',
-            'adminlinks'    => 'mnara::mnara.links',
-            'unauthorized'  => 'mnara::partials.unauthorized',
+            'master'        => 'mnara::admin.layouts.app',
+            'flash'         => 'mnara::admin.partials.flash',
+            'modal'         => 'mnara::admin.partials.modal',
+            'search'        => 'mnara::admin.partials.search',
+            'dashboard'     => 'mnara::admin.mnara.index',
+            'adminlinks'    => 'mnara::admin.mnara.links',
+            'unauthorized'  => 'mnara::admin.partials.unauthorized',
         ],
 
         'users' => [
-            'index'     => 'mnara::user.index',
-            'create'    => 'mnara::user.create',
-            'show'      => 'mnara::user.edit',
-            'edit'      => 'mnara::user.edit',
-            'role'      => 'mnara::user.role',
-            'usermatrix'=> 'mnara::user.matrix'
+            'index'     => 'mnara::admin.user.index',
+            'create'    => 'mnara::admin.user.create',
+            'show'      => 'mnara::admin.user.edit',
+            'edit'      => 'mnara::admin.user.edit',
+            'role'      => 'mnara::admin.user.role',
+            'usermatrix'=> 'mnara::admin.user.matrix'
         ],
 
         'roles' => [
-            'index'     => 'mnara::role.index',
-            'create'    => 'mnara::partials.create',
-            'show'      => 'mnara::partials.edit',
-            'edit'      => 'mnara::partials.edit',
-            'user'      => 'mnara::role.user',
-            'rolematrix'=> 'mnara::role.matrix',
-            'permission'=> 'mnara::role.permission'
+            'index'     => 'mnara::admin.role.index',
+            'create'    => 'mnara::admin.partials.create',
+            'show'      => 'mnara::admin.partials.edit',
+            'edit'      => 'mnara::admin.partials.edit',
+            'user'      => 'mnara::admin.role.user',
+            'rolematrix'=> 'mnara::admin.role.matrix',
+            'permission'=> 'mnara::admin.role.permission'
         ],
 
         'permissions' => [
-            'index'     => 'mnara::permission.index',
-            'create'    => 'mnara::partials.create',
-            'show'      => 'mnara::partials.edit',
-            'edit'      => 'mnara::partials.edit',
-            'role'      => 'mnara::permission.role'
+            'index'     => 'mnara::admin.permission.index',
+            'create'    => 'mnara::admin.partials.create',
+            'show'      => 'mnara::admin.partials.edit',
+            'edit'      => 'mnara::admin.partials.edit',
+            'role'      => 'mnara::admin.permission.role'
         ],
         'authenticator' => [
-            'index'     => 'mnara::authenticator.index',
-            'create'    => 'mnara::authenticator.create',
-            'show'      => 'mnara::authenticator.edit',
-            'edit'      => 'mnara::authenticator.edit',
-            'role'      => 'mnara::authenticator.role'
+            'index'     => 'mnara::admin.authenticator.index',
+            'create'    => 'mnara::admin.authenticator.create',
+            'show'      => 'mnara::admin.authenticator.edit',
+            'edit'      => 'mnara::admin.authenticator.edit',
+            'role'      => 'mnara::admin.authenticator.role'
+        ],
+        'shared'=>[
+            'google-analytics' => 'mnara::admin.shared.GoogleAnalytics'
         ]
     ],
 

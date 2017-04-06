@@ -75,7 +75,7 @@ class MnaraServiceProvider extends ServiceProvider {
         $basePath = __DIR__;
         $publishable = [
             'mnara_assets' => [
-                "$basePath/Assets/" => public_path('vendor/mnara'),
+                "$basePath/Assets/" => public_path('vendor/tyondo/mnara'),
             ],
             'migrations' => [
                 "$basePath/Database/migrations/" => database_path('migrations'),
