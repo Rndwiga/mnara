@@ -43,6 +43,21 @@ return [
             'store'  => [],
         ],
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | Mnara 2fa Authenticator
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    'options' => [
+        'name' => 'Tyondo Enterprise',
+        'email' => 'packages@tyondo.com',
+        'file' => 'google2fasecret.key',
+        'keySize' => 32,
+        'keyPrefix' => '',
+    ],
 
     /*
     |--------------------------------------------------------------------
@@ -54,26 +69,6 @@ return [
     | caffeinated/themes : https://github.com/caffeinated/themes
     */
     'use_theme' => false,
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Routes
-    |--------------------------------------------------------------------------
-    |
-    | Laravel is an evolving framework. The Mnara is set-up to cater for future changes.
-    |
-    | Laravel 5.3 default:
-    |   /login, /logout and /register
-    | Laravel 5.4 default:
-    |   /login, /logout and /register
-    |
-    */
-    'auth_routes' => [
-        'login'     => (str_contains( app()->version(), '5.3') ? '' : '').'/login',
-        'logout'    => (str_contains( app()->version(), '5.3') ? '' : '').'/logout',
-        'register'  => (str_contains( app()->version(), '5.3') ? '' : '').'/register',
-    ],
 
 
     /*

@@ -203,7 +203,7 @@ class MnaraTableSeeder extends Seeder
                 ->insertGetId( [
                         'name' => 'admin',
                         'email' => 'admin@admin.com',
-                        'google2fa_secret' => Google2FA::generateSecretKey(config('mnara_authenticator.options.keySize'), config('mnara_authenticator.options.keyPrefix')),
+                        'google2fa_secret' => Google2FA::generateSecretKey(config('mnara.options.keySize'), config('mnara.options.keyPrefix')),
                         'password' => bcrypt('password')
                     ]
                 );

@@ -1,5 +1,5 @@
 <?php
-namespace Tyondo\Mnara\Controllers;
+namespace Tyondo\Mnara\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Tyondo\Mnara\Facades\MnaraFacade as Mnara;

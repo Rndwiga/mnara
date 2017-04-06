@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Middleware;
+namespace Tyondo\Mnara\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

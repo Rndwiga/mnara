@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Requests;
+namespace Tyondo\Mnara\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -4,7 +4,7 @@ Route::group( [
     'as' => 'mnara.',
 ], function () {
     event('mnara.routing', app('router'));
-    $namespacePrefix = '\\'.'Tyondo\\Mnara\\Controllers'.'\\';
+    $namespacePrefix = '\\'.'Tyondo\\Mnara\\Http\\Controllers'.'\\';
 
     Route::get('/mnara/authenticator', ['uses' => $namespacePrefix.'AuthenticatorController@home'])->name(config('mnara.route.prefix') . 'authenticator.index');
     Route::get('/mnara/authenticator/generate', ['uses' => $namespacePrefix.'AuthenticatorController@regenerateSecretKey'])->name(config('mnara.route.prefix') . 'authenticator.generate');

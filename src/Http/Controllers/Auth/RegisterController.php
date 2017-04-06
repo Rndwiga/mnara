@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Controllers\Auth;
+namespace Tyondo\Mnara\Http\Controllers\Auth;
 
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Controllers\Controller;

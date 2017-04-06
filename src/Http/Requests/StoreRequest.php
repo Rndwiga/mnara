@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Requests;
+namespace Tyondo\Mnara\Http\Requests;
 
 //use Tyondo\Mnara\Requests\Request; //no need since the request class is in the same namespace
 

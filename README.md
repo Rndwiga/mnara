@@ -10,5 +10,6 @@ Mnara is a user management package with light-weight role-based permission for l
 Mnara is extremely flexible and extensible to be used in any project.
 
 ###Documentation
-
+    Important: I have implemented a lot of changes since the last release.
+    I have not touched on the db, but the structure has significantly changed
 To get started on Mnara here is a user friendly documentation wiki: [**Tyondo Mnara Wiki**](https://github.com/Rndwiga/mnara/wiki)

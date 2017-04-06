@@ -1,8 +1,8 @@
 <?php
 
-namespace Tyondo\Mnara\Controllers\Auth;
+namespace Tyondo\Mnara\Http\Controllers\Auth;
 
-use Tyondo\Mnara\Controllers\Controller;
+use Tyondo\Mnara\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Controllers;
+namespace Tyondo\Mnara\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -10,8 +10,8 @@ use Tyondo\Mnara\Facades\MnaraFacade as Mnara;
 use Tyondo\Mnara\Models\User;
 use Tyondo\Mnara\Models\Role;
 
-use Tyondo\Mnara\Requests\UserStoreRequest;
-use Tyondo\Mnara\Requests\UserUpdateRequest;
+use Tyondo\Mnara\Http\Requests\UserStoreRequest;
+use Tyondo\Mnara\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {

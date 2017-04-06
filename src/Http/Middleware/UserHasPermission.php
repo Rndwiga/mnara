@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Middleware;
+namespace Tyondo\Mnara\Http\Middleware;
 
 use Tyondo\Mnara\Models\Role;
 use Closure;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tyondo\Mnara\Controllers;
+namespace Tyondo\Mnara\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Tyondo\Mnara\Helpers\Mnara2faHelper;

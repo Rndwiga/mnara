@@ -29,7 +29,7 @@ class Mnara
     }
     public function routes()
     {
-        require __DIR__.'/Routes/webRoutes.php';
+        require __DIR__.'/../Publishable/Routes/web.php';
     }
     public function view($name, $data = null)
     {

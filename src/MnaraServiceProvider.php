@@ -23,14 +23,16 @@ class MnaraServiceProvider extends ServiceProvider {
         'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade',
     ];
     protected $middleware = [
-        'role_mnara' => 'Tyondo\Mnara\Middleware\UserHasRole',
-        'permission_mnara' => 'Tyondo\Mnara\Middleware\UserHasPermission',
+        'role_mnara' => 'Tyondo\Mnara\Http\Middleware\UserHasRole',
+        'permission_mnara' => 'Tyondo\Mnara\Http\Middleware\UserHasPermission',
     ];
+    protected  $basePath = __DIR__;
+    protected $publishableDir = __DIR__.'/../Publishable';
 
     public function boot(Router $router, Dispatcher $event)
     {
         $this->registerMiddleware($router);
-        $this->loadViewsFrom(__DIR__ . '/Resources/views', 'mnara');
+        $this->loadViewsFrom($this->publishableDir .'/Resources/views', 'mnara');
         $this->registerViewComposers();
     }
 
@@ -60,36 +62,32 @@ class MnaraServiceProvider extends ServiceProvider {
     protected function registerViewComposers()
     {
         $this->app['view']->composer('mnara::*',function($view){
-            $view->theme = isset( Auth::user()->theme ) ? Auth::user()->theme : $this->app['config']->get('mnara.default_theme');
             $view->title = $this->app['config']->get('mnara.site_title');
         });
     }
     protected function registerConfigs()
     {
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara.php', 'mnara');
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara_menu.php', 'mnara_menu');
-        $this->mergeConfigFrom(__DIR__.'/Config/mnara_authenticator.php', 'mnara_authenticator');
+        $this->mergeConfigFrom($this->publishableDir . '/Config/mnara.php', 'mnara');
+        $this->mergeConfigFrom($this->publishableDir . '/Config/mnara_menu.php', 'mnara_menu');
     }
     private function registerPublishableResources()
     {
-        $basePath = __DIR__;
         $publishable = [
             'mnara_assets' => [
-                "$basePath/Assets/" => public_path('vendor/tyondo/mnara'),
+                "$this->publishableDir/Public/" => public_path('vendor/tyondo/mnara'),
             ],
             'migrations' => [
-                "$basePath/Database/migrations/" => database_path('migrations'),
+                "$this->basePath/Database/migrations/" => database_path('migrations'),
             ],
             'seeds' => [
-                "$basePath/Database/seeds/" => database_path('seeds'),
+                "$this->basePath/Database/seeds/" => database_path('seeds'),
             ],
             'views' => [
-                "$basePath/Resources/views/" => base_path('resources/views/vendor/mnara'),
+                "$this->publishableDir/Resources/views/" => base_path('resources/views/vendor/mnara'),
             ],
             'config' => [
-                "$basePath/Config/mnara.php" => config_path('mnara.php'),
-                "$basePath/Config/mnara_menu.php" => config_path('mnara_menu.php'),
-                "$basePath/Config/mnara_authenticator.php" => config_path('mnara_authenticator.php'),
+                "$this->publishableDir/Config/mnara.php" => config_path('mnara.php'),
+                "$this->publishableDir/Config/mnara_menu.php" => config_path('mnara_menu.php'),
             ],
         ];
 

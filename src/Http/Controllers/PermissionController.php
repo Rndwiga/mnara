@@ -1,13 +1,13 @@
 <?php
 
-namespace Tyondo\Mnara\Controllers;
+namespace Tyondo\Mnara\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tyondo\Mnara\Models\Role;
 use Tyondo\Mnara\Models\Permission;
-use Tyondo\Mnara\Requests\StoreRequest;
-use Tyondo\Mnara\Requests\UpdateRequest;
+use Tyondo\Mnara\Http\Requests\StoreRequest;
+use Tyondo\Mnara\Http\Requests\UpdateRequest;
 use Tyondo\Mnara\Facades\MnaraFacade as Mnara;
 
 
