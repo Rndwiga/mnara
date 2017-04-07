@@ -9,6 +9,7 @@ use Symfony\Component\Process\Process;
 use Tyondo\Mnara\Traits\Seedable;
 use Tyondo\Mnara\MnaraServiceProvider;
 use Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider;
+use Spatie\Activitylog\ActivitylogServiceProvider;
 
 class InstallCommand extends Command
 {
@@ -65,6 +66,10 @@ class InstallCommand extends Command
         $this->call('vendor:publish', [
                                                 '--provider' => TyondoMenuGeneratorServiceProvider::class,
                                                 '--tag' => 'views'
+                                                ]);
+        $this->call('vendor:publish', [
+                                                '--provider' => ActivitylogServiceProvider::class,
+                                                '--tag' => ['config','migrations']
                                                 ]);
 
         $this->info('Migrating the database tables into your application');

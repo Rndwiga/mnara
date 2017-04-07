@@ -12,6 +12,7 @@ use Tyondo\Mnara\Models\Role;
 
 use Tyondo\Mnara\Http\Requests\UserStoreRequest;
 use Tyondo\Mnara\Http\Requests\UserUpdateRequest;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -283,11 +284,14 @@ class UserController extends Controller
      */
     public function showUserProfile($id)
     {
-        //return Auth::user()->can(config('mnara.acl.user.profile', false));
+        foreach (Activity::all() as $activity) {
+            //return $activity;
+        }
         if ( Auth::user()->can([config('mnara.acl.user.profile', false) ] ) ) {
+            $activities = Activity::orderBy('id','desc')->simplePaginate(3);;
             $resource = $this->model->findOrFail($id);
             $show = "1";
-            return Mnara::view( config('mnara.views.users.profile'), compact('resource','show') );
+            return Mnara::view( config('mnara.views.users.profile'), compact('activities','resource','show') );
         }
 
         return Mnara::view( config('mnara.views.layouts.unauthorized'), [ 'message' => 'view your profile' ]);

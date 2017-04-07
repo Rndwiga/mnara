@@ -3,17 +3,23 @@
 namespace Tyondo\Mnara\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends Model
 {
+    use LogsActivity;
     /**
      * The attributes that are fillable via mass assignment.
      *
      * @var array
      */
     protected $fillable = ['name', 'slug', 'description', 'special'];
+    /**
+     * The attributes that are used to log user activities.
+     *
+     * @var array
+     */
+    protected static $logAttributes = ['name', 'slug', 'description', 'special'];
 
     /**
      * The database table used by the model.

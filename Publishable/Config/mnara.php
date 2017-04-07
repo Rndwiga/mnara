@@ -155,6 +155,7 @@ return [
             'role'      => 'mnara::admin.user.role',
             'usermatrix'=> 'mnara::admin.user.matrix',
             'profile'   => 'mnara::user.profile',
+            'account-activity'   => 'mnara::user.account-activity',
         ],
 
         'roles' => [

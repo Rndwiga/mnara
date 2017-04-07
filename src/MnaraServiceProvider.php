@@ -15,6 +15,7 @@ class MnaraServiceProvider extends ServiceProvider {
         'Collective\Html\HtmlServiceProvider',
         'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider',
         'Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider',
+        'Spatie\Activitylog\ActivitylogServiceProvider',
     ];
     protected $aliases = [
         'Form' => 'Collective\Html\FormFacade',

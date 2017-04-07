@@ -11,7 +11,6 @@ class User extends Authenticatable
 {
     use Notifiable;
     use MnaraTrait;
-    //use HasRoles;
     /**
      * The database table used by the model.
      *
@@ -35,6 +34,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    /**
+     * The attributes that are used to log user activities.
+     *
+     * @var array
+     */
+    protected static $logAttributes = ['name', 'email','password'];
 
 }

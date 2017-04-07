@@ -1,9 +1,13 @@
 <?php
 
 namespace Tyondo\Mnara\Traits;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 
 trait MnaraTrait
 {
+    use LogsActivity;
+    //use CausesActivity;
     /*
     |----------------------------------------------------------------------
     | Role Trait Methods
