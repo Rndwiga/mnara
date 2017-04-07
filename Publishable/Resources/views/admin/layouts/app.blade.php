@@ -62,6 +62,13 @@
 
 								</ul>
 							</li>
+							@if(config('biashara.navigation'))
+								{{--menu for the tyondo blog package -Aggregator ---}}
+								<h3>Orders</h3>
+								<ul class="nav side-menu">
+									{!! GenerateMenu::generateMenu(config('biashara.navigation')) !!}
+								</ul>
+							@endif
 							<li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
 								<ul class="nav child_menu" style="display: none">
 									<li><a href="{{ route( config('mnara.route.as') . 'user.profile', Auth::user()->id) }}"><i class="fa fa-ellipsis-h fa-xs"></i> Profile</a></li>
