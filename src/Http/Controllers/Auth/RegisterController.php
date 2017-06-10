@@ -3,7 +3,7 @@
 namespace Tyondo\Mnara\Http\Controllers\Auth;
 
 use Tyondo\Mnara\Models\User;
-use Tyondo\Mnara\Controllers\Controller;
+use Tyondo\Mnara\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -37,6 +37,23 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view(config('mnara.views.auth.register'));
+    }
+    /**
+     * Where to redirect users after login.
+     *
+     * @return  string
+     */
+    public function redirectTo(){
+        return route('mnara.dashboard');
     }
 
     /**

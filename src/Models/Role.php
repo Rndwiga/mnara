@@ -7,7 +7,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends Model
 {
-    use LogsActivity;
+    //use LogsActivity;
     /**
      * The attributes that are fillable via mass assignment.
      *

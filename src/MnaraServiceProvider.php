@@ -13,15 +13,15 @@ class MnaraServiceProvider extends ServiceProvider {
 
     protected $providers = [
         'Collective\Html\HtmlServiceProvider',
-        'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider',
+        //'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider',
         'Tyondo\MenuGenerator\TyondoMenuGeneratorServiceProvider',
-        'Spatie\Activitylog\ActivitylogServiceProvider',
+        //'Spatie\Activitylog\ActivitylogServiceProvider',
     ];
     protected $aliases = [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Mnara' => 'Tyondo\Mnara\facades\MnaraFacade',
-        'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade',
+        //'Google2FA' => 'PragmaRX\Google2FA\Vendor\Laravel\Facade',
     ];
     protected $middleware = [
         'role_mnara' => 'Tyondo\Mnara\Http\Middleware\UserHasRole',
@@ -29,10 +29,19 @@ class MnaraServiceProvider extends ServiceProvider {
     ];
     protected  $basePath = __DIR__;
     protected $publishableDir = __DIR__.'/../Publishable';
+    /**
+     * Migration files.
+     */
+    private function handleMigrations()
+    {
+        // Load the migrations...
+        $this->loadMigrationsFrom("$this->basePath/Database/migrations");
+    }
 
     public function boot(Router $router, Dispatcher $event)
     {
         $this->registerMiddleware($router);
+        $this->handleMigrations();
         $this->loadViewsFrom($this->publishableDir .'/Resources/views', 'mnara');
         $this->registerViewComposers();
     }

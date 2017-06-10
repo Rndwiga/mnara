@@ -145,6 +145,11 @@ return [
             'dashboard'     => 'mnara::admin.mnara.index',
             'adminlinks'    => 'mnara::admin.mnara.links',
             'unauthorized'  => 'mnara::admin.partials.unauthorized',
+            'includes' => [
+                'left' =>  'mnara::admin.layouts.includes.left-navigation',
+                'top' =>  'mnara::admin.layouts.includes.top-navigation',
+                'footer' =>  'mnara::admin.layouts.includes.footer'
+            ],
         ],
 
         'users' => [
@@ -174,6 +179,13 @@ return [
             'show'      => 'mnara::admin.partials.edit',
             'edit'      => 'mnara::admin.partials.edit',
             'role'      => 'mnara::admin.permission.role'
+        ],
+        'auth' => [
+            'index'     => 'mnara::admin.auth.login',
+            'register'  => 'mnara::admin.auth.register',
+            'show'      => 'mnara::admin.authenticator.edit',
+            'edit'      => 'mnara::admin.authenticator.edit',
+            'role'      => 'mnara::admin.authenticator.role'
         ],
         'authenticator' => [
             'index'     => 'mnara::admin.authenticator.index',

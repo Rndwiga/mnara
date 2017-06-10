@@ -6,7 +6,7 @@ use Spatie\Activitylog\Traits\CausesActivity;
 
 trait MnaraTrait
 {
-    use LogsActivity;
+    //use LogsActivity;
     //use CausesActivity;
     /*
     |----------------------------------------------------------------------

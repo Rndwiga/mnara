@@ -62,7 +62,9 @@ class InstallCommand extends Command
     public function fire(Filesystem $filesystem)
     {
         $this->info('Publishing the Mnara assets, database, and config files');
-        $this->call('vendor:publish', ['--provider' => MnaraServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => MnaraServiceProvider::class,
+                                                    '--tag' => ['config','mnara_assets','seeds']
+                                                ]);
         $this->call('vendor:publish', [
                                                 '--provider' => TyondoMenuGeneratorServiceProvider::class,
                                                 '--tag' => 'views'

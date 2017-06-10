@@ -3,8 +3,25 @@
 Route::group( [
     'as' => 'mnara.',
 ], function () {
+
+    Route::group(['prefix'=>''], function(){
+        event('mnara.routing', app('router'));
+        $namespaceController = '\\'.'Tyondo\\Mnara\\Http\\Controllers\\Auth'.'\\';
+        Route::get('/',$namespaceController.'LoginController@showLoginForm')->name('login.form');
+        Route::post('mnara/login',$namespaceController.'LoginController@login')->name('login');
+        Route::post('mnara/logout',$namespaceController.'LoginController@logout')->name('logout');
+        Route::get('mnara/login',$namespaceController.'LoginController@showLoginForm')->name('mnara.login.form.2');
+        Route::post('mnara/register',$namespaceController.'RegisterController@register')->name('register');
+        Route::get('mnara/register',$namespaceController.'RegisterController@showRegistrationForm')->name('register.form');
+        Route::post('mnara/password/request',$namespaceController.'ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+        Route::get('mnara/password/request',$namespaceController.'ForgotPasswordController@showLinkRequestForm')->name('client.password.request.form');
+        Route::post('mnara/password/reset',$namespaceController.'ResetPasswordController@reset')->name('client.password.reset');
+        Route::get('mnara/password/reset',$namespaceController.'ResetPasswordController@showResetForm')->name('client.password.reset.form');
+    });
+
     event('mnara.routing', app('router'));
     $namespacePrefix = '\\'.'Tyondo\\Mnara\\Http\\Controllers'.'\\';
+
 
     Route::get('/mnara/authenticator', ['uses' => $namespacePrefix.'AuthenticatorController@home'])->name(config('mnara.route.prefix') . 'authenticator.index');
     Route::get('/mnara/authenticator/generate', ['uses' => $namespacePrefix.'AuthenticatorController@regenerateSecretKey'])->name(config('mnara.route.prefix') . 'authenticator.generate');
@@ -87,8 +104,8 @@ Route::group( [
     |	Mnara Authentication
     |-------------------------------------------------------------------------
     */
-    Route::post('/mnara/logout', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'logout');
-    Route::post('/mnara/login', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'login');
+   // Route::post('/mnara/logout', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'logout');
+  //  Route::post('/mnara/login', ['uses' => $namespacePrefix.'Auth\LoginController@logout'])->name(config('mnara.route.prefix') . 'login');
 
     /*
     |-------------------------------------------------------------------------
@@ -96,6 +113,6 @@ Route::group( [
     |-------------------------------------------------------------------------
     */
 
-    Route::get('/', ['uses' => $namespacePrefix.'MnaraController@index', 'as' => 'index']);
+    Route::get('mnara/dashboard', ['uses' => $namespacePrefix.'MnaraController@index', 'as' => 'dashboard']);
 
 });
