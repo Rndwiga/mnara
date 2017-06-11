@@ -10,7 +10,7 @@ Route::group( [
         Route::get('/',$namespaceController.'LoginController@showLoginForm')->name('login.form');
         Route::post('mnara/login',$namespaceController.'LoginController@login')->name('login');
         Route::post('mnara/logout',$namespaceController.'LoginController@logout')->name('logout');
-        Route::get('mnara/login',$namespaceController.'LoginController@showLoginForm')->name('mnara.login.form.2');
+        //Route::get('mnara/login',$namespaceController.'LoginController@showLoginForm')->name('mnara.login.form.2');
         Route::post('mnara/register',$namespaceController.'RegisterController@register')->name('register');
         Route::get('mnara/register',$namespaceController.'RegisterController@showRegistrationForm')->name('register.form');
         Route::post('mnara/password/request',$namespaceController.'ForgotPasswordController@sendResetLinkEmail')->name('password.request');

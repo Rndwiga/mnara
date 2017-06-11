@@ -27,7 +27,7 @@
 	<link href="{{asset('vendor/tyondo/mnara/vendor/custom/css/custom.min.css')}}" rel="stylesheet">
 </head>
 
-@if(\Request::is('mnara') ||\Request::is('mnara/register') || \Request::is('client/login') || \Request::is('client/password/request') || \Request::is('client/password/reset'))
+@if(\Request::is('mnara') || \Request::is('/') ||\Request::is('mnara/register') || \Request::is('client/login') || \Request::is('client/password/request') || \Request::is('client/password/reset'))
 	<body class="login">
 		@yield('content')
 	</body>

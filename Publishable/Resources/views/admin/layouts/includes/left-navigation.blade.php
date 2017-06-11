@@ -51,7 +51,8 @@
                     </li>
                 </ul>
             </div>
-            @if((new \Illuminate\Routing\RouteCollection())->hasNamedRoute('admin.posts.create'))
+            {{--@if((new \Illuminate\Routing\RouteCollection())->hasNamedRoute('admin.posts.index'))--}}
+            @if(config('mnara.use_aggregator'))
                 @if(Auth::check())
                     <div class="menu_section">
                         @if(config('aggregator.navigation'))
@@ -64,7 +65,8 @@
 
                     </div>
                 @endif
-            @else
+            @endif
+
                 @if(Auth::user()->isRole('root'))
                     <h3>Administration</h3>
                     <ul class="nav side-menu">
@@ -73,7 +75,7 @@
                         {!! GenerateMenu::generateMenu(config('mnara_menu.navigation')) !!}
                     </ul>
                 @endif
-            @endif
+
 
         </div>
         <!-- /sidebar menu -->
