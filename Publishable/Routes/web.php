@@ -7,7 +7,7 @@ Route::group( [
     Route::group(['prefix'=>''], function(){
         event('mnara.routing', app('router'));
         $namespaceController = '\\'.'Tyondo\\Mnara\\Http\\Controllers\\Auth'.'\\';
-        Route::get('/',$namespaceController.'LoginController@showLoginForm')->name('login.form');
+        Route::get('mnara',$namespaceController.'LoginController@showLoginForm')->name('login.form');
         Route::post('mnara/login',$namespaceController.'LoginController@login')->name('login');
         Route::post('mnara/logout',$namespaceController.'LoginController@logout')->name('logout');
         //Route::get('mnara/login',$namespaceController.'LoginController@showLoginForm')->name('mnara.login.form.2');

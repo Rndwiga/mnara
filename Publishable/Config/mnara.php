@@ -20,6 +20,7 @@ return [
     */
     'site_title' => 'Mnara',
     'site_url' => 'https://github.com/Rndwiga/mnara',
+    'use_aggregator' => false,
 
 
     /*
