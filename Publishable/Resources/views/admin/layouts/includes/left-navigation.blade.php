@@ -62,11 +62,23 @@
                                 {!! GenerateMenu::generateMenu(config('aggregator.navigation')) !!}
                             </ul>
                         @endif
+                    </div>
+                @endif
+            @endif
+            @if(config('mnara.use_company'))
+                @if(Auth::check())
+                    <div class="menu_section">
+                        @if(config('musoni-website-v5.navigation'))
+                            {{--menu for the tyondo blog package -Aggregator ---}}
+                            <h3>Company</h3>
+                            <ul class="nav side-menu">
+                                {!! GenerateMenu::generateMenu(config('musoni-website-v5.navigation')) !!}
+                            </ul>
+                        @endif
 
                     </div>
                 @endif
             @endif
-
                 @if(Auth::user()->isRole('root'))
                     <h3>Administration</h3>
                     <ul class="nav side-menu">
@@ -75,8 +87,6 @@
                         {!! GenerateMenu::generateMenu(config('mnara_menu.navigation')) !!}
                     </ul>
                 @endif
-
-
         </div>
         <!-- /sidebar menu -->
         <!-- /menu footer buttons -->
