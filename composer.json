@@ -16,8 +16,7 @@
         "pragmarx/google2fa": "^1.0",
         "tyondo/menu-generator": "1.0.*",
         "tyondo/laravel-notifications": "1.0.*",
-        "laravelcollective/html": "5.3.*|5.4.*|5.5.*",
-        "spatie/laravel-activitylog": "^1.12"
+        "laravelcollective/html": "5.3.*|5.4.*|5.5.*"
     },
     "suggest": {
         "caffeinated/themes": "Theming package for laravel"
